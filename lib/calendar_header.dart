@@ -1,4 +1,4 @@
-import 'package:example/event_calendar/themes.dart';
+import 'package:flutter_event_calendar/themes.dart';
 import 'package:flutter/material.dart';
 
 class CalendarHeader extends StatelessWidget {

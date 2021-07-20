@@ -51,7 +51,7 @@ packages:
     source: hosted
     version: "1.0.3"
   expandable_page_view:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: expandable_page_view
       url: "https://pub.dartlang.org"
@@ -69,6 +69,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_event_calendar:
+    dependency: "direct dev"
+    description:
+      path: ".."
+      relative: true
+    source: path
+    version: "0.0.1"
   flutter_test:
     dependency: "direct dev"
     description: flutter

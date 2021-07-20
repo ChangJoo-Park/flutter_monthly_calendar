@@ -1,4 +1,4 @@
-import 'package:example/event_calendar/themes.dart';
+import 'package:flutter_event_calendar/themes.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -40,12 +40,9 @@ class CalendarCell extends StatelessWidget {
               height: theme.cellHeight,
               decoration: cellDecoration,
               curve: theme.cellCurve,
-              duration: Duration(milliseconds: 400),
+              duration: theme.cellDuration,
               child: FittedBox(
-                child: Text('${datetime.toLocal().day}',
-                    style: isSameMonth
-                        ? theme.defaultCellTextStyle
-                        : theme.otherMonthCellTextStyle),
+                child: Text('${datetime.toLocal().day}', style: cellTextStyle),
               ),
             ),
           ),
@@ -58,5 +55,12 @@ class CalendarCell extends StatelessWidget {
     if (isSelected) return theme.selectedCellBoxDecoration;
     if (isToday) return theme.todayCellBoxDecoration;
     return theme.defaultCellBoxDecoration;
+  }
+
+  TextStyle get cellTextStyle {
+    if (isSameMonth) {
+      return theme.defaultCellTextStyle;
+    }
+    return theme.otherMonthCellTextStyle;
   }
 }

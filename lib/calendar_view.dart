@@ -1,8 +1,8 @@
-import 'package:example/event_calendar/calendar_cell.dart';
-import 'package:example/event_calendar/calendar_header.dart';
-import 'package:example/event_calendar/consts.dart';
-import 'package:example/event_calendar/themes.dart';
-import 'package:example/event_calendar/utils.dart';
+import 'package:flutter_event_calendar/calendar_cell.dart';
+import 'package:flutter_event_calendar/calendar_header.dart';
+import 'package:flutter_event_calendar/consts.dart';
+import 'package:flutter_event_calendar/themes.dart';
+import 'package:flutter_event_calendar/utils.dart';
 import 'package:flutter/material.dart';
 
 class CalendarView extends StatefulWidget {

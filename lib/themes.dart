@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 abstract class EventCalendarThemeData {
-  // Calendar
   late TableBorder calendarTableBorder;
   late FlexColumnWidth defaultColumnWidth;
   late TextDirection textDirection;
@@ -135,6 +134,7 @@ class DefaultEventCalendarThemeData implements EventCalendarThemeData {
       TableCellVerticalAlignment.middle;
 }
 
+/// CyberFunk 2077 like color scheme
 class CyberFunkEventCalendarThemeData implements EventCalendarThemeData {
   @override
   late TableBorder calendarTableBorder = TableBorder.all(
@@ -187,7 +187,7 @@ class CyberFunkEventCalendarThemeData implements EventCalendarThemeData {
 
   @override
   TextStyle otherMonthCellTextStyle = const TextStyle(
-      color: Color(0xFF554B41), fontSize: 14, fontWeight: FontWeight.bold);
+      color: Color(0xFF554B41), fontSize: 14, fontWeight: FontWeight.normal);
 
   @override
   BoxDecoration selectedCellBoxDecoration = BoxDecoration(

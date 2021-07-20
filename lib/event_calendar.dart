@@ -1,13 +1,15 @@
-import 'package:example/event_calendar/calendar_view.dart';
-import 'package:example/event_calendar/consts.dart';
-import 'package:example/event_calendar/locale.dart';
-import 'package:example/event_calendar/themes.dart';
-import 'package:example/event_calendar/utils.dart';
+import 'package:flutter_event_calendar/calendar_view.dart';
+import 'package:flutter_event_calendar/consts.dart';
+import 'package:flutter_event_calendar/locale.dart';
+import 'package:flutter_event_calendar/themes.dart';
+import 'package:flutter_event_calendar/utils.dart';
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 
 export 'utils.dart';
 export 'consts.dart';
+export 'themes.dart';
+export 'locale.dart';
 
 class EventCalendar extends StatefulWidget {
   EventCalendar({

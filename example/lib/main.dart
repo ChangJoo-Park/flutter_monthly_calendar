@@ -1,7 +1,5 @@
-import 'package:example/event_calendar/consts.dart';
-import 'package:example/event_calendar/event_calendar.dart';
-import 'package:example/event_calendar/locale.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_event_calendar/event_calendar.dart';
 
 void main() {
   runApp(MyApp());
