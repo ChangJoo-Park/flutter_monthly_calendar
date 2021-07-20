@@ -17,7 +17,7 @@ class CalendarView extends StatefulWidget {
     this.onCellLongPress,
   }) : super(key: key);
 
-  final Weekday baseWeekday;
+  final EventCalendarWeekday baseWeekday;
   final DateTime initialDateTime;
   final DateTime? selectedDateTime;
   final ValueChanged<DateTime>? onDateTimeSelected;
@@ -38,9 +38,9 @@ class _CalendarViewState extends State<CalendarView> {
   @override
   void initState() {
     int diff = getDiffFromWeekday(widget.baseWeekday);
-    weekdays = rotateList(list: [...widget.weekdays], amount: diff);
+    weekdays = [...widget.weekdays].rotateRight(diff);
     days = generateMonth(widget.initialDateTime.toLocal(), diff);
-    allDays = chunk(days, 7);
+    allDays = days.chunk(7);
     super.initState();
   }
 
@@ -70,14 +70,15 @@ class _CalendarViewState extends State<CalendarView> {
                               }
                             },
                             datetime: datetime,
-                            isSameMonth: isSameMonth(datetime.toLocal(),
-                                widget.initialDateTime.toLocal()),
+                            isSameMonth: datetime
+                                .toLocal()
+                                .isSameMonth(widget.initialDateTime.toLocal()),
                             isSelected: widget.selectedDateTime == null
                                 ? false
-                                : isSameDay(datetime.toLocal(),
+                                : datetime.toLocal().isSameDay(
                                     widget.selectedDateTime!.toLocal()),
                             isToday:
-                                isSameDay(datetime, DateTime.now().toLocal()),
+                                datetime.isSameDay(DateTime.now().toLocal()),
                             key: ValueKey(
                                 'CALENDAR_CELL_${datetime.toIso8601String()}'),
                             onTap: (selected) {
@@ -95,17 +96,17 @@ class _CalendarViewState extends State<CalendarView> {
     );
   }
 
-  int getDiffFromWeekday(Weekday weekday) {
+  int getDiffFromWeekday(EventCalendarWeekday weekday) {
     var diff = 0;
 
     switch (weekday) {
-      case Weekday.MONDAY:
+      case EventCalendarWeekday.MONDAY:
         diff = 0;
         break;
-      case Weekday.SUNDAY:
+      case EventCalendarWeekday.SUNDAY:
         diff = 1;
         break;
-      case Weekday.SATURDAY:
+      case EventCalendarWeekday.SATURDAY:
         diff = 2;
         break;
       default:

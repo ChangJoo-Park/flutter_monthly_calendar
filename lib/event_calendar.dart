@@ -6,7 +6,6 @@ import 'package:flutter_event_calendar/utils.dart';
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 
-export 'utils.dart';
 export 'consts.dart';
 export 'themes.dart';
 export 'locale.dart';
@@ -20,7 +19,7 @@ class EventCalendar extends StatefulWidget {
     this.locale = const EnglishEventCalendarLocale(),
     this.onMonthChanged,
     this.onSelectedDateChanged,
-    this.baseWeekday = Weekday.MONDAY,
+    this.baseWeekday = EventCalendarWeekday.MONDAY,
     this.pageViewAnimationDuration = const Duration(milliseconds: 200),
     this.pageViewAnimationCurve = Curves.fastOutSlowIn,
     this.pageViewEstimateHeight = 350,
@@ -30,16 +29,16 @@ class EventCalendar extends StatefulWidget {
     this.theme,
     this.onCellLongPress,
   })  : assert(
-          baseWeekday == Weekday.MONDAY ||
-              baseWeekday == Weekday.SUNDAY ||
-              baseWeekday == Weekday.SATURDAY,
+          baseWeekday == EventCalendarWeekday.MONDAY ||
+              baseWeekday == EventCalendarWeekday.SUNDAY ||
+              baseWeekday == EventCalendarWeekday.SATURDAY,
           "EventCalendar support only Monday, Sunday, Saturday",
         ),
         assert(startDateTime.isBefore(endDateTime)),
         super(key: key);
 
   // For PageView
-  final Weekday baseWeekday;
+  final EventCalendarWeekday baseWeekday;
   final DateTime startDateTime;
   final DateTime endDateTime;
   final DateTime? selectedDateTime;
