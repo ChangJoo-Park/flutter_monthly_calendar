@@ -70,9 +70,8 @@ class _CalendarViewState extends State<CalendarView> {
                               }
                             },
                             datetime: datetime,
-                            isSameMonth: datetime
-                                .toLocal()
-                                .isSameMonth(widget.initialDateTime.toLocal()),
+                            isSameMonth: datetime.toLocal().isSameYearMonth(
+                                widget.initialDateTime.toLocal()),
                             isSelected: widget.selectedDateTime == null
                                 ? false
                                 : datetime.toLocal().isSameYearMonthDay(
