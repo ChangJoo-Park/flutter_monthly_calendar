@@ -1,23 +1,43 @@
-List<List<T>> chunk<T>(List<T> list, int chunkSize) {
-  List<List<T>> chunks = [];
-  int len = list.length;
-  for (var i = 0; i < len; i += chunkSize) {
-    int size = i + chunkSize;
-    chunks.add(list.sublist(i, size > len ? len : size));
+extension ListChunk on List {
+  List<List<T>> chunk<T>(int chunkSize) {
+    List<List<T>> chunks = [];
+    int len = this.length;
+    for (var i = 0; i < len; i += chunkSize) {
+      int size = i + chunkSize;
+      chunks.add(this.sublist(i, size > len ? len : size) as List<T>);
+    }
+    return chunks;
   }
-  return chunks;
 }
 
-bool isSameYear(DateTime datetime1, DateTime datetime2) {
-  return datetime1.year == datetime2.year;
+extension ListMutation on List {
+  List<T> rotate<T>(int amount, bool isRight) {
+    List<T> target = [...this];
+
+    for (var i = 0; i < amount; i++) {
+      if (isRight) {
+        var lastItem = target.removeLast();
+        target.insert(0, lastItem);
+      } else {
+        var firstItem = target[0];
+        target.removeAt(0);
+        target.add(firstItem);
+      }
+    }
+
+    return target;
+  }
+
+  List<T> rotateRight<T>(int amount) => this.rotate(amount, true);
+  List<T> rotateLeft<T>(int amount) => this.rotate(amount, false);
 }
 
-bool isSameMonth(DateTime datetime1, DateTime datetime2) {
-  return isSameYear(datetime1, datetime2) && datetime1.month == datetime2.month;
-}
-
-bool isSameDay(DateTime datetime1, datetime2) {
-  return isSameMonth(datetime1, datetime2) && datetime1.day == datetime2.day;
+extension DateComparison on DateTime {
+  bool isSameYear(datetime) => this.year == datetime.year;
+  bool isSameMonth(datetime) =>
+      this.isSameYear(this) && this.month == datetime.month;
+  bool isSameDay(datetime) =>
+      this.isSameMonth(this) && this.day == datetime.day;
 }
 
 List<DateTime> generateMonth(DateTime datetime, int baseWeekdayIndex) {
@@ -34,10 +54,12 @@ List<DateTime> generateMonth(DateTime datetime, int baseWeekdayIndex) {
             days:
                 firstOfMonth.weekday - 1 + baseWeekdayIndex), // 필요하면 유틸리티로 빼야함
       );
+
   DateTime loopEndDay = lastOfMonth
       .toLocal()
       .add(Duration(days: 7 - lastOfMonth.weekday - baseWeekdayIndex));
 
+  // !!!: 임의로 추가함
   if (loopEndDay.toLocal().isBefore(lastOfMonth.toLocal())) {
     loopEndDay = loopEndDay.toLocal().add(Duration(days: 7));
   }
@@ -63,22 +85,4 @@ List<DateTime> generateCalendar(DateTime startDateTime, DateTime endDateTime) {
     (i) => DateTime(calendarStartDate.year, calendarStartDate.month + i, 1)
         .toLocal(),
   );
-}
-
-List<T> rotateList<T>(
-    {List<T> list = const [], int amount = 0, bool right = true}) {
-  var target = [...list];
-
-  for (var i = 0; i < amount; i++) {
-    if (right) {
-      var lastItem = target.removeLast();
-      target.insert(0, lastItem);
-    } else {
-      var firstItem = target[0];
-      target.removeAt(0);
-      target.add(firstItem);
-    }
-  }
-
-  return target;
 }
