@@ -34,10 +34,33 @@ extension ListMutation on List {
 
 extension DateComparison on DateTime {
   bool isSameYear(datetime) => this.year == datetime.year;
-  bool isSameMonth(datetime) =>
-      this.isSameYear(this) && this.month == datetime.month;
-  bool isSameDay(datetime) =>
-      this.isSameMonth(this) && this.day == datetime.day;
+
+  bool isSameMonth(datetime) => this.month == datetime.month;
+
+  bool isSameDay(datetime) => this.day == datetime.day;
+
+  bool isSameYearMonth(datetime) =>
+      this.isSameYear(datetime) && this.isSameMonth(datetime);
+  bool isSameYearMonthDay(datetime) =>
+      this.isSameYear(datetime) &&
+      this.isSameMonth(datetime) &&
+      this.isSameDay(datetime);
+
+  int differenceInMonth(DateTime datetime) {
+    int count = 0;
+    DateTime source = this;
+    bool isBefore = source.isBefore(datetime);
+    while (!source.isSameYearMonth(datetime)) {
+      if (isBefore) {
+        source = DateTime(source.year, source.month + 1, 1);
+        count++;
+      } else {
+        source = DateTime(source.year, source.month - 1, 1);
+        count--;
+      }
+    }
+    return count;
+  }
 }
 
 List<DateTime> generateMonth(DateTime datetime, int baseWeekdayIndex) {
@@ -79,10 +102,11 @@ List<DateTime> generateCalendar(DateTime startDateTime, DateTime endDateTime) {
       DateTime(startDateTime.year, startDateTime.month, 1);
   DateTime calendarEndDate =
       DateTime(endDateTime.year, endDateTime.month + 1, 0);
-
-  return List.generate(
-    calendarEndDate.month - calendarStartDate.month + 1,
+  int difference = calendarStartDate.differenceInMonth(calendarEndDate);
+  List<DateTime> data = List.generate(
+    difference,
     (i) => DateTime(calendarStartDate.year, calendarStartDate.month + i, 1)
         .toLocal(),
   );
+  return data;
 }

@@ -5,12 +5,12 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "sliver_calendar",
+      "name": "event_calendar",
       "request": "launch",
       "type": "dart"
     },
     {
-      "name": "sliver_calendar (profile mode)",
+      "name": "event_calendar (profile mode)",
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile"

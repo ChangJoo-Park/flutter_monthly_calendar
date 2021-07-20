@@ -68,7 +68,6 @@ class _EventCalendarState extends State<EventCalendar> {
         widget.selectedDateTime, widget.startDateTime, widget.endDateTime);
 
     pageController = PageController(initialPage: initialPage);
-
     super.initState();
   }
 
@@ -120,16 +119,15 @@ class _EventCalendarState extends State<EventCalendar> {
     }
   }
 
-  int _getInitialPage(
-      DateTime? targetDateTime, DateTime startDateTime, DateTime endDateTime) {
-    if (targetDateTime == null) {
+  int _getInitialPage(DateTime? selectedDateTime, DateTime startDateTime,
+      DateTime endDateTime) {
+    if (selectedDateTime == null) {
       final now = DateTime.now();
       final isBetweenRange =
           startDateTime.isBefore(now) && endDateTime.isAfter(now);
 
       return isBetweenRange ? now.month - startDateTime.month : 0;
     }
-
-    return targetDateTime.month - startDateTime.month;
+    return startDateTime.differenceInMonth(selectedDateTime);
   }
 }

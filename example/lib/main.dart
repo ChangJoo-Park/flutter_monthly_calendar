@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key, required this.title}) : super(key: key);
 
-  final DateTime startDateTime = DateTime(2021, 04, 30).toLocal();
+  final DateTime startDateTime = DateTime(2020, 01, 01).toLocal();
   final DateTime endDateTime = DateTime(2021, 12, 31).toLocal();
   final DateTime selectedDateTime = DateTime.now().add(Duration(days: 2));
 

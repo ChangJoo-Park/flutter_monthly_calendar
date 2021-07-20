@@ -75,10 +75,10 @@ class _CalendarViewState extends State<CalendarView> {
                                 .isSameMonth(widget.initialDateTime.toLocal()),
                             isSelected: widget.selectedDateTime == null
                                 ? false
-                                : datetime.toLocal().isSameDay(
+                                : datetime.toLocal().isSameYearMonthDay(
                                     widget.selectedDateTime!.toLocal()),
-                            isToday:
-                                datetime.isSameDay(DateTime.now().toLocal()),
+                            isToday: datetime
+                                .isSameYearMonthDay(DateTime.now().toLocal()),
                             key: ValueKey(
                                 'CALENDAR_CELL_${datetime.toIso8601String()}'),
                             onTap: (selected) {

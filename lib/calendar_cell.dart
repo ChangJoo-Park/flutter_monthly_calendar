@@ -1,8 +1,7 @@
 import 'package:flutter_event_calendar/themes.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
-class CalendarCell extends StatelessWidget {
+class CalendarCell extends StatefulWidget {
   CalendarCell({
     Key? key,
     required this.datetime,
@@ -23,26 +22,34 @@ class CalendarCell extends StatelessWidget {
   final EventCalendarThemeData theme;
 
   @override
+  _CalendarCellState createState() => _CalendarCellState();
+}
+
+class _CalendarCellState extends State<CalendarCell> {
+  @override
   Widget build(BuildContext context) {
     return TableCell(
-      verticalAlignment: theme.tableCellAlignment,
+      verticalAlignment: widget.theme.tableCellAlignment,
       child: GestureDetector(
-        onTap: () => {if (onTap != null) onTap!(datetime)},
-        onLongPress: () =>
-            {if (onLongPressed != null) onLongPressed!(datetime)},
+        onTap: () => {if (widget.onTap != null) widget.onTap!(widget.datetime)},
+        onLongPress: () => {
+          if (widget.onLongPressed != null)
+            widget.onLongPressed!(widget.datetime)
+        },
         child: Container(
-          decoration: theme.outerCellBoxDecoration,
-          constraints: theme.outerCellBoxConstraints,
+          decoration: widget.theme.outerCellBoxDecoration,
+          constraints: widget.theme.outerCellBoxConstraints,
           child: Center(
             child: AnimatedContainer(
-              alignment: theme.cellAlignment,
-              width: theme.cellWidth,
-              height: theme.cellHeight,
+              alignment: widget.theme.cellAlignment,
+              width: widget.theme.cellWidth,
+              height: widget.theme.cellHeight,
               decoration: cellDecoration,
-              curve: theme.cellCurve,
-              duration: theme.cellDuration,
+              curve: widget.theme.cellCurve,
+              duration: widget.theme.cellDuration,
               child: FittedBox(
-                child: Text('${datetime.toLocal().day}', style: cellTextStyle),
+                child: Text('${widget.datetime.toLocal().day}',
+                    style: cellTextStyle),
               ),
             ),
           ),
@@ -52,15 +59,15 @@ class CalendarCell extends StatelessWidget {
   }
 
   BoxDecoration get cellDecoration {
-    if (isSelected) return theme.selectedCellBoxDecoration;
-    if (isToday) return theme.todayCellBoxDecoration;
-    return theme.defaultCellBoxDecoration;
+    if (widget.isSelected) return widget.theme.selectedCellBoxDecoration;
+    if (widget.isToday) return widget.theme.todayCellBoxDecoration;
+    return widget.theme.defaultCellBoxDecoration;
   }
 
   TextStyle get cellTextStyle {
-    if (isSameMonth) {
-      return theme.defaultCellTextStyle;
+    if (widget.isSameMonth) {
+      return widget.theme.defaultCellTextStyle;
     }
-    return theme.otherMonthCellTextStyle;
+    return widget.theme.otherMonthCellTextStyle;
   }
 }
