@@ -12,7 +12,7 @@ extension ListChunk on List {
 
 extension ListMutation on List {
   List<T> rotate<T>(int amount, bool isRight) {
-    List<T> target = [...this];
+    List<T> target = List.from(this);
 
     for (var i = 0; i < amount; i++) {
       if (isRight) {
