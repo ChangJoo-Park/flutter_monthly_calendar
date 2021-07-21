@@ -1,3 +1,13 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-class EventCalendarController extends ChangeNotifier {}
+enum EventCalendarControllerAction { MOVETO }
+
+class EventCalendarController extends ChangeNotifier {
+  late DateTime moveTargetDateTime;
+  late EventCalendarControllerAction lastAction;
+  moveTo(DateTime datetime) {
+    moveTargetDateTime = datetime;
+    lastAction = EventCalendarControllerAction.MOVETO;
+    notifyListeners();
+  }
+}

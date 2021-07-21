@@ -1,5 +1,6 @@
 import 'package:flutter_event_calendar/calendar_view.dart';
 import 'package:flutter_event_calendar/consts.dart';
+import 'package:flutter_event_calendar/event_calendar_controller.dart';
 import 'package:flutter_event_calendar/locale.dart';
 import 'package:flutter_event_calendar/themes.dart';
 import 'package:flutter_event_calendar/utils.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/material.dart';
 export 'consts.dart';
 export 'themes.dart';
 export 'locale.dart';
+export 'event_calendar_controller.dart';
 
 class EventCalendar extends StatefulWidget {
   EventCalendar({
@@ -28,6 +30,7 @@ class EventCalendar extends StatefulWidget {
     this.restorationId,
     this.theme,
     this.onCellLongPress,
+    this.controller,
   })  : assert(
           baseWeekday == EventCalendarWeekday.MONDAY ||
               baseWeekday == EventCalendarWeekday.SUNDAY ||
@@ -53,6 +56,8 @@ class EventCalendar extends StatefulWidget {
   final Clip clipBehavior;
   final EventCalendarThemeData? theme;
   final Function(DateTime datetime)? onCellLongPress;
+  final EventCalendarController? controller;
+
   @override
   _EventCalendarState createState() => _EventCalendarState();
 }
@@ -68,12 +73,19 @@ class _EventCalendarState extends State<EventCalendar> {
         widget.selectedDateTime, widget.startDateTime, widget.endDateTime);
 
     pageController = PageController(initialPage: initialPage);
+
+    if (widget.controller != null) {
+      widget.controller!.addListener(listenEventCalendarController);
+    }
     super.initState();
   }
 
   @override
   void dispose() {
     pageController.dispose();
+    if (widget.controller != null) {
+      widget.controller!.dispose();
+    }
     super.dispose();
   }
 
@@ -129,5 +141,24 @@ class _EventCalendarState extends State<EventCalendar> {
       return isBetweenRange ? now.month - startDateTime.month : 0;
     }
     return startDateTime.differenceInMonth(selectedDateTime);
+  }
+
+  void listenEventCalendarController() {
+    if (pageController == null) return;
+
+    switch (widget.controller!.lastAction) {
+      case EventCalendarControllerAction.MOVETO:
+        DateTime target = DateTime(widget.controller!.moveTargetDateTime.year,
+            widget.controller!.moveTargetDateTime.month, 1);
+        int index = months.indexOf(target);
+        if (index >= 0)
+          pageController.animateToPage(
+            index,
+            duration: Duration(milliseconds: 200),
+            curve: Curves.fastOutSlowIn,
+          );
+        break;
+      default:
+    }
   }
 }

@@ -34,12 +34,14 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   late DateTime selectedDateTime;
   late String title = '선택해주세요.';
+  late EventCalendarController controller;
   @override
   void initState() {
     if (widget.selectedDateTime != null) {
       selectedDateTime = widget.selectedDateTime;
       title = '${selectedDateTime.year}년 ${selectedDateTime.month}월';
     }
+    controller = EventCalendarController();
     super.initState();
   }
 
@@ -60,6 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           SliverToBoxAdapter(
             child: EventCalendar(
+              controller: controller,
               baseWeekday: EventCalendarWeekday.MONDAY,
               locale: KoreanEventCalendarLocale(),
               startDateTime: widget.startDateTime,
@@ -86,6 +89,17 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   )),
                 ],
+              ),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Container(
+              padding: const EdgeInsets.all(16),
+              child: TextButton(
+                onPressed: () {
+                  controller.moveTo(DateTime(2021, 07));
+                },
+                child: Text("Move to 2021, 07"),
               ),
             ),
           ),
