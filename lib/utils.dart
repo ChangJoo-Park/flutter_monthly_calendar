@@ -61,6 +61,10 @@ extension DateComparison on DateTime {
 
     return count;
   }
+
+  DateTime addMonth(int amount) {
+    return DateTime(this.year, this.month + amount, this.day);
+  }
 }
 
 List<DateTime> generateMonth(DateTime datetime, int firstWeekdayIndex) {
@@ -102,11 +106,9 @@ List<DateTime> generateCalendar(DateTime startDateTime, DateTime endDateTime) {
       DateTime(startDateTime.year, startDateTime.month, 1);
   DateTime calendarEndDate =
       DateTime(endDateTime.year, endDateTime.month + 1, 0);
-  int difference = calendarStartDate.differenceInMonth(calendarEndDate);
-  List<DateTime> data = List.generate(
-    difference,
-    (i) => DateTime(calendarStartDate.year, calendarStartDate.month + i, 1)
-        .toLocal(),
+
+  return List.generate(
+    calendarStartDate.differenceInMonth(calendarEndDate),
+    (amount) => calendarStartDate.addMonth(amount).toLocal(),
   );
-  return data;
 }
