@@ -42,6 +42,7 @@ extension DateComparison on DateTime {
 
   bool isSameYearMonth(datetime) =>
       this.isSameYear(datetime) && this.isSameMonth(datetime);
+
   bool isSameYearMonthDay(datetime) =>
       this.isSameYear(datetime) &&
       this.isSameMonth(datetime) &&
@@ -64,7 +65,7 @@ extension DateComparison on DateTime {
   }
 }
 
-List<DateTime> generateMonth(DateTime datetime, int baseWeekdayIndex) {
+List<DateTime> generateMonth(DateTime datetime, int firstWeekdayIndex) {
   // [datetime] 으로 부터 이번달의 1일의 요일을 가져온다.
   DateTime firstOfMonth = DateTime(datetime.year, datetime.month, 1).toLocal();
   // 이번달의 마지막 날과 요일을 가져온다.
@@ -76,12 +77,12 @@ List<DateTime> generateMonth(DateTime datetime, int baseWeekdayIndex) {
   DateTime loopStartDay = firstOfMonth.toLocal().subtract(
         Duration(
             days:
-                firstOfMonth.weekday - 1 + baseWeekdayIndex), // 필요하면 유틸리티로 빼야함
+                firstOfMonth.weekday - 1 + firstWeekdayIndex), // 필요하면 유틸리티로 빼야함
       );
 
   DateTime loopEndDay = lastOfMonth
       .toLocal()
-      .add(Duration(days: 7 - lastOfMonth.weekday - baseWeekdayIndex));
+      .add(Duration(days: 7 - lastOfMonth.weekday - firstWeekdayIndex));
 
   // !!!: 임의로 추가함
   if (loopEndDay.toLocal().isBefore(lastOfMonth.toLocal())) {

@@ -22,7 +22,7 @@ class EventCalendar extends StatefulWidget {
     this.locale = const EnglishEventCalendarLocale(),
     this.onMonthChanged,
     this.onSelectedDateChanged,
-    this.baseWeekday = EventCalendarWeekday.MONDAY,
+    this.firstWeekday = EventCalendarWeekday.MONDAY,
     this.pageViewAnimationDuration = const Duration(milliseconds: 200),
     this.pageViewAnimationCurve = Curves.fastOutSlowIn,
     this.pageViewEstimateHeight = 350,
@@ -33,16 +33,16 @@ class EventCalendar extends StatefulWidget {
     this.onCellLongPress,
     this.controller,
   })  : assert(
-          baseWeekday == EventCalendarWeekday.MONDAY ||
-              baseWeekday == EventCalendarWeekday.SUNDAY ||
-              baseWeekday == EventCalendarWeekday.SATURDAY,
+          firstWeekday == EventCalendarWeekday.MONDAY ||
+              firstWeekday == EventCalendarWeekday.SUNDAY ||
+              firstWeekday == EventCalendarWeekday.SATURDAY,
           "EventCalendar support only Monday, Sunday, Saturday",
         ),
         assert(startDateTime.isBefore(endDateTime)),
         super(key: key);
 
   // For PageView
-  final EventCalendarWeekday baseWeekday;
+  final EventCalendarWeekday firstWeekday;
   final bool shortHeader;
   final DateTime startDateTime;
   final DateTime endDateTime;
@@ -107,7 +107,7 @@ class _EventCalendarState extends State<EventCalendar> {
       itemBuilder: (context, index) {
         return CalendarView(
           theme: widget.theme ?? DefaultEventCalendarThemeData(),
-          baseWeekday: widget.baseWeekday,
+          firstWeekday: widget.firstWeekday,
           initialDateTime: months[index],
           selectedDateTime: widget.selectedDateTime,
           onDateTimeSelected: (datetime) {

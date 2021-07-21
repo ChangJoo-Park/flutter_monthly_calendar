@@ -11,13 +11,13 @@ class CalendarView extends StatefulWidget {
     required this.initialDateTime,
     required this.selectedDateTime,
     required this.weekdays,
-    required this.baseWeekday,
+    required this.firstWeekday,
     this.onDateTimeSelected,
     required this.theme,
     this.onCellLongPress,
   }) : super(key: key);
 
-  final EventCalendarWeekday baseWeekday;
+  final EventCalendarWeekday firstWeekday;
   final DateTime initialDateTime;
   final DateTime? selectedDateTime;
   final ValueChanged<DateTime>? onDateTimeSelected;
@@ -37,7 +37,7 @@ class _CalendarViewState extends State<CalendarView> {
 
   @override
   void initState() {
-    int diff = getDiffFromWeekday(widget.baseWeekday);
+    int diff = getDiffFromWeekday(widget.firstWeekday);
     weekdays = [...widget.weekdays].rotateRight(diff);
     days = generateMonth(widget.initialDateTime.toLocal(), diff);
     allDays = days.chunk(7);
