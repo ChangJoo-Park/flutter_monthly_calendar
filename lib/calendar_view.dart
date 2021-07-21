@@ -1,6 +1,5 @@
 import 'package:flutter_event_calendar/calendar_cell.dart';
 import 'package:flutter_event_calendar/calendar_header.dart';
-import 'package:flutter_event_calendar/consts.dart';
 import 'package:flutter_event_calendar/themes.dart';
 import 'package:flutter_event_calendar/utils.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +16,7 @@ class CalendarView extends StatefulWidget {
     this.onCellLongPress,
   }) : super(key: key);
 
-  final EventCalendarWeekday firstWeekday;
+  final int firstWeekday;
   final DateTime initialDateTime;
   final DateTime? selectedDateTime;
   final ValueChanged<DateTime>? onDateTimeSelected;
@@ -95,17 +94,17 @@ class _CalendarViewState extends State<CalendarView> {
     );
   }
 
-  int getDiffFromWeekday(EventCalendarWeekday weekday) {
+  int getDiffFromWeekday(int weekday) {
     var diff = 0;
 
     switch (weekday) {
-      case EventCalendarWeekday.MONDAY:
+      case DateTime.monday:
         diff = 0;
         break;
-      case EventCalendarWeekday.SUNDAY:
+      case DateTime.sunday:
         diff = 1;
         break;
-      case EventCalendarWeekday.SATURDAY:
+      case DateTime.saturday:
         diff = 2;
         break;
       default:

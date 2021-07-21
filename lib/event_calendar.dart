@@ -1,5 +1,4 @@
 import 'package:flutter_event_calendar/calendar_view.dart';
-import 'package:flutter_event_calendar/consts.dart';
 import 'package:flutter_event_calendar/event_calendar_controller.dart';
 import 'package:flutter_event_calendar/locale.dart';
 import 'package:flutter_event_calendar/themes.dart';
@@ -7,7 +6,6 @@ import 'package:flutter_event_calendar/utils.dart';
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 
-export 'consts.dart';
 export 'themes.dart';
 export 'locale.dart';
 export 'event_calendar_controller.dart';
@@ -22,7 +20,7 @@ class EventCalendar extends StatefulWidget {
     this.locale = const EnglishEventCalendarLocale(),
     this.onMonthChanged,
     this.onSelectedDateChanged,
-    this.firstWeekday = EventCalendarWeekday.MONDAY,
+    this.firstWeekday = DateTime.monday,
     this.pageViewAnimationDuration = const Duration(milliseconds: 200),
     this.pageViewAnimationCurve = Curves.fastOutSlowIn,
     this.pageViewEstimateHeight = 350,
@@ -33,16 +31,16 @@ class EventCalendar extends StatefulWidget {
     this.onCellLongPress,
     this.controller,
   })  : assert(
-          firstWeekday == EventCalendarWeekday.MONDAY ||
-              firstWeekday == EventCalendarWeekday.SUNDAY ||
-              firstWeekday == EventCalendarWeekday.SATURDAY,
+          firstWeekday == DateTime.monday ||
+              firstWeekday == DateTime.sunday ||
+              firstWeekday == DateTime.saturday,
           "EventCalendar support only Monday, Sunday, Saturday",
         ),
         assert(startDateTime.isBefore(endDateTime)),
         super(key: key);
 
   // For PageView
-  final EventCalendarWeekday firstWeekday;
+  final int firstWeekday;
   final bool shortHeader;
   final DateTime startDateTime;
   final DateTime endDateTime;
@@ -67,9 +65,10 @@ class EventCalendar extends StatefulWidget {
 class _EventCalendarState extends State<EventCalendar> {
   late final PageController pageController;
   late final List<DateTime> months;
-
+  late final EventCalendarThemeData theme;
   @override
   void initState() {
+    theme = widget.theme ?? DefaultEventCalendarThemeData();
     months = generateCalendar(widget.startDateTime, widget.endDateTime);
     pageController = PageController(initialPage: _initialPage);
 
@@ -106,7 +105,7 @@ class _EventCalendarState extends State<EventCalendar> {
       key: widget.key,
       itemBuilder: (context, index) {
         return CalendarView(
-          theme: widget.theme ?? DefaultEventCalendarThemeData(),
+          theme: theme,
           firstWeekday: widget.firstWeekday,
           initialDateTime: months[index],
           selectedDateTime: widget.selectedDateTime,
@@ -157,8 +156,8 @@ class _EventCalendarState extends State<EventCalendar> {
 
         pageController.animateToPage(
           index,
-          duration: widget.theme!.defaultDuration,
-          curve: widget.theme!.defaultCurve,
+          duration: theme.defaultDuration,
+          curve: theme.defaultCurve,
         );
         break;
       default:
