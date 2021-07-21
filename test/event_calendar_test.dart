@@ -27,6 +27,5 @@ void main() {
     expect(eventCalendar.scrollPhysics, const PageScrollPhysics());
     expect(eventCalendar.theme, null);
     final state = tester.state<EventCalendarState>(eventCalendarFinder);
-    expect(state.theme, DefaultEventCalendarThemeData());
   });
 }
