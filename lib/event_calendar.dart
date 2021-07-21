@@ -71,10 +71,7 @@ class _EventCalendarState extends State<EventCalendar> {
   @override
   void initState() {
     months = generateCalendar(widget.startDateTime, widget.endDateTime);
-    final initialPage = _getInitialPage(
-        widget.selectedDateTime, widget.startDateTime, widget.endDateTime);
-
-    pageController = PageController(initialPage: initialPage);
+    pageController = PageController(initialPage: _initialPage);
 
     if (widget.controller != null) {
       widget.controller!.addListener(listenEventCalendarController);
@@ -127,6 +124,17 @@ class _EventCalendarState extends State<EventCalendar> {
         );
       },
     );
+  }
+
+  int get _initialPage {
+    if (widget.selectedDateTime == null) {
+      final now = DateTime.now();
+      final isBetweenRange =
+          widget.startDateTime.isBefore(now) && widget.endDateTime.isAfter(now);
+
+      return isBetweenRange ? now.month - widget.startDateTime.month : 0;
+    }
+    return widget.startDateTime.differenceInMonth(widget.selectedDateTime!);
   }
 
   void _onPageChanged(int index) {
