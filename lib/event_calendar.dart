@@ -59,16 +59,14 @@ class EventCalendar extends StatefulWidget {
   final EventCalendarController? controller;
 
   @override
-  _EventCalendarState createState() => _EventCalendarState();
+  EventCalendarState createState() => EventCalendarState();
 }
 
-class _EventCalendarState extends State<EventCalendar> {
+class EventCalendarState extends State<EventCalendar> {
   late final PageController pageController;
   late final List<DateTime> months;
-  late final EventCalendarThemeData theme;
   @override
   void initState() {
-    theme = widget.theme ?? DefaultEventCalendarThemeData();
     months = generateCalendar(widget.startDateTime, widget.endDateTime);
     pageController = PageController(initialPage: _initialPage);
 
@@ -105,7 +103,7 @@ class _EventCalendarState extends State<EventCalendar> {
       key: widget.key,
       itemBuilder: (context, index) {
         return CalendarView(
-          theme: theme,
+          theme: widget.theme ?? DefaultEventCalendarThemeData(),
           firstWeekday: widget.firstWeekday,
           monthDateTime: months[index],
           selectedDateTime: widget.selectedDateTime,
@@ -153,6 +151,7 @@ class _EventCalendarState extends State<EventCalendar> {
         int index = months.indexOf(target);
 
         if (index < 0) return;
+        var theme = DefaultEventCalendarThemeData();
 
         pageController.animateToPage(
           index,
