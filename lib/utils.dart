@@ -1,5 +1,7 @@
 extension ListChunk on List {
   List<List<T>> chunk<T>(int chunkSize) {
+    if (chunkSize.isNegative) throw RangeError.range(chunkSize, 0, null);
+
     List<List<T>> chunks = [];
     int len = this.length;
     for (var i = 0; i < len; i += chunkSize) {
@@ -16,14 +18,11 @@ extension ListMutation on List {
 
     if (isRight) {
       for (var i = 0; i < amount; i++) {
-        var lastItem = target.removeLast();
-        target.insert(0, lastItem);
+        target.insert(0, target.removeLast());
       }
     } else {
       for (var i = 0; i < amount; i++) {
-        var firstItem = target[0];
-        target.removeAt(0);
-        target.add(firstItem);
+        target.add(target.removeAt(0));
       }
     }
     return target;
@@ -49,17 +48,17 @@ extension DateComparison on DateTime {
       this.isSameDay(datetime);
 
   int differenceInMonth(DateTime datetime) {
-    int count = 0;
+    int diff = 0;
     DateTime source = this;
     bool isBefore = source.isBefore(datetime);
     int delta = isBefore ? 1 : -1;
 
     while (!source.isSameYearMonth(datetime)) {
-      source = DateTime(source.year, source.month + delta, 1);
-      count += delta;
+      source = source.addMonth(delta);
+      diff += delta;
     }
 
-    return count;
+    return diff;
   }
 
   DateTime addMonth(int amount) {
@@ -104,8 +103,7 @@ List<DateTime> generateMonth(DateTime datetime, int firstWeekdayIndex) {
 List<DateTime> generateCalendar(DateTime startDateTime, DateTime endDateTime) {
   DateTime calendarStartDate =
       DateTime(startDateTime.year, startDateTime.month, 1);
-  DateTime calendarEndDate =
-      DateTime(endDateTime.year, endDateTime.month + 1, 0);
+  DateTime calendarEndDate = endDateTime.addMonth(1);
 
   return List.generate(
     calendarStartDate.differenceInMonth(calendarEndDate),
