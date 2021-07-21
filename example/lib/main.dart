@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_event_calendar/event_calendar.dart';
+import 'package:flutter_event_calendar/themes.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Sliver Calendar'),
+      home: MyHomePage(title: 'Event Calendar'),
     );
   }
 }
@@ -35,6 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
   late DateTime selectedDateTime;
   late String title = '선택해주세요.';
   late EventCalendarController controller;
+  late EventCalendarThemeData theme = CyberFunkEventCalendarThemeData();
   @override
   void initState() {
     if (widget.selectedDateTime != null) {
@@ -48,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title: Text(widget.title)),
       body: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
@@ -65,6 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
               controller: controller,
               firstWeekday: DateTime.sunday,
               shortHeader: true,
+              theme: theme,
               locale: KoreanEventCalendarLocale(),
               startDateTime: widget.startDateTime,
               endDateTime: widget.endDateTime,
@@ -93,6 +96,25 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
           ),
+          SliverList(
+              delegate: SliverChildListDelegate.fixed([
+            ListTile(
+              title: Text('Change Theme to Default'),
+              onTap: () {
+                setState(() {
+                  theme = DefaultEventCalendarThemeData();
+                });
+              },
+            ),
+            ListTile(
+              title: Text('Change Theme to CyberFunk'),
+              onTap: () {
+                setState(() {
+                  theme = CyberFunkEventCalendarThemeData();
+                });
+              },
+            ),
+          ])),
           SliverToBoxAdapter(
             child: Container(
               padding: const EdgeInsets.all(16),
