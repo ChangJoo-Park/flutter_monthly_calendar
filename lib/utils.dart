@@ -14,17 +14,18 @@ extension ListMutation on List {
   List<T> rotate<T>(int amount, bool isRight) {
     List<T> target = List.from(this);
 
-    for (var i = 0; i < amount; i++) {
-      if (isRight) {
+    if (isRight) {
+      for (var i = 0; i < amount; i++) {
         var lastItem = target.removeLast();
         target.insert(0, lastItem);
-      } else {
+      }
+    } else {
+      for (var i = 0; i < amount; i++) {
         var firstItem = target[0];
         target.removeAt(0);
         target.add(firstItem);
       }
     }
-
     return target;
   }
 
