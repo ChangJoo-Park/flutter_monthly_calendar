@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class CalendarView extends StatefulWidget {
   CalendarView({
     Key? key,
-    required this.initialDateTime,
+    required this.monthDateTime,
     required this.selectedDateTime,
     required this.weekdays,
     required this.firstWeekday,
@@ -17,12 +17,12 @@ class CalendarView extends StatefulWidget {
   }) : super(key: key);
 
   final int firstWeekday;
-  final DateTime initialDateTime;
+  final DateTime monthDateTime;
   final DateTime? selectedDateTime;
   final ValueChanged<DateTime>? onDateTimeSelected;
   final List<String> weekdays;
   final EventCalendarThemeData theme;
-  final Function(DateTime datetime)? onCellLongPress;
+  final Function(DateTime value)? onCellLongPress;
 
   @override
   CalendarViewState createState() => CalendarViewState();
@@ -38,7 +38,7 @@ class CalendarViewState extends State<CalendarView> {
   void initState() {
     weekdays = List.from(widget.weekdays)
         .rotateRight(getDiffFromWeekday(widget.firstWeekday));
-    days = generateMonth(widget.initialDateTime.toLocal(), widget.firstWeekday);
+    days = generateMonth(widget.monthDateTime.toLocal(), widget.firstWeekday);
     allDays = days.chunk(7);
     super.initState();
   }
@@ -70,7 +70,7 @@ class CalendarViewState extends State<CalendarView> {
                             },
                             datetime: datetime,
                             isSameMonth: datetime.toLocal().isSameYearMonth(
-                                widget.initialDateTime.toLocal()),
+                                widget.monthDateTime.toLocal()),
                             isSelected: widget.selectedDateTime == null
                                 ? false
                                 : datetime.toLocal().isSameYearMonthDay(

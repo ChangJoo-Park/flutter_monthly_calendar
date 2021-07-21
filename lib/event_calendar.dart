@@ -107,7 +107,7 @@ class _EventCalendarState extends State<EventCalendar> {
         return CalendarView(
           theme: theme,
           firstWeekday: widget.firstWeekday,
-          initialDateTime: months[index],
+          monthDateTime: months[index],
           selectedDateTime: widget.selectedDateTime,
           onDateTimeSelected: (datetime) {
             if (widget.onSelectedDateChanged != null)
