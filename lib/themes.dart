@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 abstract class EventCalendarThemeData {
+  Duration defaultDuration = Duration(milliseconds: 200);
+  Curve defaultCurve = Curves.fastOutSlowIn;
+
   late TableBorder calendarTableBorder;
   late FlexColumnWidth defaultColumnWidth;
   late TextDirection textDirection;
@@ -34,6 +37,12 @@ abstract class EventCalendarThemeData {
 }
 
 class DefaultEventCalendarThemeData implements EventCalendarThemeData {
+  @override
+  Curve defaultCurve = Curves.fastOutSlowIn;
+
+  @override
+  Duration defaultDuration = Duration(milliseconds: 200);
+
   @override
   late TableBorder calendarTableBorder = TableBorder.all(
     style: BorderStyle.none,
@@ -136,6 +145,12 @@ class DefaultEventCalendarThemeData implements EventCalendarThemeData {
 
 /// CyberFunk 2077 like color scheme
 class CyberFunkEventCalendarThemeData implements EventCalendarThemeData {
+  @override
+  Curve defaultCurve = Curves.fastOutSlowIn;
+
+  @override
+  Duration defaultDuration = Duration(milliseconds: 200);
+
   @override
   late TableBorder calendarTableBorder = TableBorder.all(
     style: BorderStyle.none,
