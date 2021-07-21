@@ -17,6 +17,7 @@ class EventCalendar extends StatefulWidget {
     Key? key,
     required this.startDateTime,
     required this.endDateTime,
+    this.shortHeader = true,
     this.selectedDateTime,
     this.locale = const EnglishEventCalendarLocale(),
     this.onMonthChanged,
@@ -42,6 +43,7 @@ class EventCalendar extends StatefulWidget {
 
   // For PageView
   final EventCalendarWeekday baseWeekday;
+  final bool shortHeader;
   final DateTime startDateTime;
   final DateTime endDateTime;
   final DateTime? selectedDateTime;
@@ -119,7 +121,9 @@ class _EventCalendarState extends State<EventCalendar> {
           onCellLongPress: (datetime) {
             print('datetime => $datetime');
           },
-          weekdays: widget.locale.weekdaysShort,
+          weekdays: widget.shortHeader
+              ? widget.locale.weekdaysShort
+              : widget.locale.weekdaysLong,
         );
       },
     );
