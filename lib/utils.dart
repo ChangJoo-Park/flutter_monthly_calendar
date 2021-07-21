@@ -66,7 +66,8 @@ extension DateComparison on DateTime {
   }
 }
 
-List<DateTime> generateMonth(DateTime datetime, int firstWeekdayIndex) {
+List<DateTime> generateMonth(DateTime datetime, int baseWeekday) {
+  int firstWeekdayDiff = getDiffFromWeekday(baseWeekday);
   // [datetime] 으로 부터 이번달의 1일의 요일을 가져온다.
   DateTime firstOfMonth = DateTime(datetime.year, datetime.month, 1).toLocal();
   // 이번달의 마지막 날과 요일을 가져온다.
@@ -78,12 +79,12 @@ List<DateTime> generateMonth(DateTime datetime, int firstWeekdayIndex) {
   DateTime loopStartDay = firstOfMonth.toLocal().subtract(
         Duration(
             days:
-                firstOfMonth.weekday - 1 + firstWeekdayIndex), // 필요하면 유틸리티로 빼야함
+                firstOfMonth.weekday - 1 + firstWeekdayDiff), // 필요하면 유틸리티로 빼야함
       );
 
   DateTime loopEndDay = lastOfMonth
       .toLocal()
-      .add(Duration(days: 7 - lastOfMonth.weekday - firstWeekdayIndex));
+      .add(Duration(days: 7 - lastOfMonth.weekday - firstWeekdayDiff));
 
   // !!!: 임의로 추가함
   if (loopEndDay.toLocal().isBefore(lastOfMonth.toLocal())) {
@@ -109,4 +110,22 @@ List<DateTime> generateCalendar(DateTime startDateTime, DateTime endDateTime) {
     calendarStartDate.differenceInMonth(calendarEndDate),
     (amount) => calendarStartDate.addMonth(amount).toLocal(),
   );
+}
+
+int getDiffFromWeekday(int weekday) {
+  var diff = 0;
+
+  switch (weekday) {
+    case DateTime.monday:
+      diff = 0;
+      break;
+    case DateTime.sunday:
+      diff = 1;
+      break;
+    case DateTime.saturday:
+      diff = 2;
+      break;
+    default:
+  }
+  return diff;
 }

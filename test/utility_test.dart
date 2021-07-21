@@ -88,4 +88,35 @@ void main() {
       );
     });
   });
+
+  group('Generate Month', () {
+    test('generated month\"s first/last weekday is based on baseWeekday', () {
+      var mondayBaseMonth =
+          generateMonth(DateTime(2021, 07, 01), DateTime.monday);
+      expect(mondayBaseMonth.first.weekday, DateTime.monday);
+      expect(mondayBaseMonth.last.weekday, DateTime.sunday);
+
+      var sundayBaseMonth =
+          generateMonth(DateTime(2021, 07, 01), DateTime.sunday);
+      expect(sundayBaseMonth.first.weekday, DateTime.sunday);
+      expect(sundayBaseMonth.last.weekday, DateTime.saturday);
+
+      var saturdayBaseMonth =
+          generateMonth(DateTime(2021, 07, 01), DateTime.saturday);
+      expect(saturdayBaseMonth.first.weekday, DateTime.saturday);
+      expect(saturdayBaseMonth.last.weekday, DateTime.friday);
+    });
+
+    test('generated list has all target days', () {
+      var startDay = DateTime(2021, 07, 01);
+      var lastDay = DateTime(2021, 07, 31);
+
+      var result = generateMonth(DateTime(2021, 07, 01), DateTime.monday);
+      var source = startDay;
+      for (var i = 0; i < lastDay.difference(startDay).inDays; i++) {
+        expect(result.contains(source), true);
+        source = source.add(Duration(days: 1));
+      }
+    });
+  });
 }

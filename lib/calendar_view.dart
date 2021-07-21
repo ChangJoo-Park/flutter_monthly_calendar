@@ -36,9 +36,9 @@ class _CalendarViewState extends State<CalendarView> {
 
   @override
   void initState() {
-    int diff = getDiffFromWeekday(widget.firstWeekday);
-    weekdays = [...widget.weekdays].rotateRight(diff);
-    days = generateMonth(widget.initialDateTime.toLocal(), diff);
+    weekdays = List.from(widget.weekdays)
+        .rotateRight(getDiffFromWeekday(widget.firstWeekday));
+    days = generateMonth(widget.initialDateTime.toLocal(), widget.firstWeekday);
     allDays = days.chunk(7);
     super.initState();
   }
@@ -92,23 +92,5 @@ class _CalendarViewState extends State<CalendarView> {
         ],
       ),
     );
-  }
-
-  int getDiffFromWeekday(int weekday) {
-    var diff = 0;
-
-    switch (weekday) {
-      case DateTime.monday:
-        diff = 0;
-        break;
-      case DateTime.sunday:
-        diff = 1;
-        break;
-      case DateTime.saturday:
-        diff = 2;
-        break;
-      default:
-    }
-    return diff;
   }
 }

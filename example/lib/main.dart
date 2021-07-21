@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
           SliverToBoxAdapter(
             child: EventCalendar(
               controller: controller,
-              firstWeekday: DateTime.monday,
+              firstWeekday: DateTime.sunday,
               shortHeader: true,
               locale: KoreanEventCalendarLocale(),
               startDateTime: widget.startDateTime,
