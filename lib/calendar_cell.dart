@@ -22,10 +22,10 @@ class CalendarCell extends StatefulWidget {
   final EventCalendarThemeData theme;
 
   @override
-  _CalendarCellState createState() => _CalendarCellState();
+  CalendarCellState createState() => CalendarCellState();
 }
 
-class _CalendarCellState extends State<CalendarCell> {
+class CalendarCellState extends State<CalendarCell> {
   @override
   Widget build(BuildContext context) {
     return TableCell(
@@ -65,9 +65,9 @@ class _CalendarCellState extends State<CalendarCell> {
   }
 
   TextStyle get cellTextStyle {
-    if (widget.isSameMonth) {
-      return widget.theme.defaultCellTextStyle;
-    }
+    if (widget.isSelected) return widget.theme.selectedCellTextStyle;
+    if (widget.isToday) return widget.theme.todayCellTextStyle;
+    if (widget.isSameMonth) return widget.theme.defaultCellTextStyle;
     return widget.theme.otherMonthCellTextStyle;
   }
 }
