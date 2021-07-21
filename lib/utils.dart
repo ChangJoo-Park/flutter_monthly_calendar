@@ -52,15 +52,13 @@ extension DateComparison on DateTime {
     int count = 0;
     DateTime source = this;
     bool isBefore = source.isBefore(datetime);
+    int delta = isBefore ? 1 : -1;
+
     while (!source.isSameYearMonth(datetime)) {
-      if (isBefore) {
-        source = DateTime(source.year, source.month + 1, 1);
-        count++;
-      } else {
-        source = DateTime(source.year, source.month - 1, 1);
-        count--;
-      }
+      source = DateTime(source.year, source.month + delta, 1);
+      count += delta;
     }
+
     return count;
   }
 }
