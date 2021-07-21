@@ -25,10 +25,10 @@ class CalendarView extends StatefulWidget {
   final Function(DateTime datetime)? onCellLongPress;
 
   @override
-  _CalendarViewState createState() => _CalendarViewState();
+  CalendarViewState createState() => CalendarViewState();
 }
 
-class _CalendarViewState extends State<CalendarView> {
+class CalendarViewState extends State<CalendarView> {
   late List<String> weekdays = [];
   late final DateTime initialDateTime;
   List<DateTime> days = [];
