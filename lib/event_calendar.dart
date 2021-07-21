@@ -74,7 +74,7 @@ class _EventCalendarState extends State<EventCalendar> {
     pageController = PageController(initialPage: _initialPage);
 
     if (widget.controller != null) {
-      widget.controller!.addListener(listenEventCalendarController);
+      widget.controller!.addListener(_listenEventCalendarController);
     }
     super.initState();
   }
@@ -111,12 +111,12 @@ class _EventCalendarState extends State<EventCalendar> {
           initialDateTime: months[index],
           selectedDateTime: widget.selectedDateTime,
           onDateTimeSelected: (datetime) {
-            if (widget.onSelectedDateChanged != null) {
+            if (widget.onSelectedDateChanged != null)
               widget.onSelectedDateChanged!(datetime);
-            }
           },
           onCellLongPress: (datetime) {
-            print('datetime => $datetime');
+            if (widget.onCellLongPress != null)
+              widget.onCellLongPress!(datetime);
           },
           weekdays: widget.shortHeader
               ? widget.locale.weekdaysShort
@@ -143,32 +143,23 @@ class _EventCalendarState extends State<EventCalendar> {
     }
   }
 
-  int _getInitialPage(DateTime? selectedDateTime, DateTime startDateTime,
-      DateTime endDateTime) {
-    if (selectedDateTime == null) {
-      final now = DateTime.now();
-      final isBetweenRange =
-          startDateTime.isBefore(now) && endDateTime.isAfter(now);
-
-      return isBetweenRange ? now.month - startDateTime.month : 0;
-    }
-    return startDateTime.differenceInMonth(selectedDateTime);
-  }
-
-  void listenEventCalendarController() {
+  void _listenEventCalendarController() {
     if (pageController == null) return;
 
     switch (widget.controller!.lastAction) {
       case EventCalendarControllerAction.MOVETO:
         DateTime target = DateTime(widget.controller!.moveTargetDateTime.year,
             widget.controller!.moveTargetDateTime.month, 1);
+
         int index = months.indexOf(target);
-        if (index >= 0)
-          pageController.animateToPage(
-            index,
-            duration: Duration(milliseconds: 200),
-            curve: Curves.fastOutSlowIn,
-          );
+
+        if (index < 0) return;
+
+        pageController.animateToPage(
+          index,
+          duration: widget.theme!.defaultDuration,
+          curve: widget.theme!.defaultCurve,
+        );
         break;
       default:
     }
