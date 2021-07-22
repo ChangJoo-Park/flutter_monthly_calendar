@@ -1,5 +1,5 @@
 name: flutter_monthly_calendar
-description: Monthly Calendar for Flutter.
+description: Monthly Calendar for Flutter. Support base weekday, themes, locales.
 version: 0.0.1
 homepage: https://github.com/ChangJoo-Park/flutter_monthly_calendar
 repository: https://github.com/ChangJoo-Park/flutter_monthly_calendar
