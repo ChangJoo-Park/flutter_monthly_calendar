@@ -1,7 +1,8 @@
 name: flutter_event_calendar
-description: Month Calendar for Flutter.
+description: Monthly Calendar for Flutter.
 version: 0.0.1
-homepage: null
+homepage: https://github.com/ChangJoo-Park/flutter_event_calendar
+repository: https://github.com/ChangJoo-Park/flutter_event_calendar
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
