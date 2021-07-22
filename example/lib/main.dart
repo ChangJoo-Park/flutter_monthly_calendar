@@ -33,7 +33,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  late DateTime selectedDateTime;
+  late DateTime? selectedDateTime;
   late String title = '';
   late MonthlyCalendarController controller;
   late MonthlyCalendarThemeData theme = DefaultMonthlyCalendarThemeData();
@@ -42,8 +42,11 @@ class _MyHomePageState extends State<MyHomePage> {
   bool shortHeader = true;
   @override
   void initState() {
-    selectedDateTime = widget.selectedDateTime;
-    title = '${selectedDateTime.month}/${selectedDateTime.year}';
+    selectedDateTime = null;
+    if (selectedDateTime != null) {
+      title = '${selectedDateTime!.month}/${selectedDateTime!.year}';
+    }
+
     controller = MonthlyCalendarController();
     super.initState();
   }
@@ -90,11 +93,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(child: Text('Selected Date')),
-                  Container(
-                      child: Text(
-                    '${selectedDateTime.day}. ${selectedDateTime.month}. ${selectedDateTime.year}',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  )),
+                  if (selectedDateTime != null)
+                    Container(
+                        child: Text(
+                      '${selectedDateTime!.day}. ${selectedDateTime!.month}. ${selectedDateTime!.year}',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    )),
                 ],
               ),
             ),
@@ -137,7 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
           setState(() {
             selectedDateTime = DateTime.now();
           });
-          controller.jumpTo(selectedDateTime);
+          controller.jumpTo(selectedDateTime!);
         },
       ),
       ListTile(
