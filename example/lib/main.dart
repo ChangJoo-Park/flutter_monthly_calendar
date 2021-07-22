@@ -132,24 +132,24 @@ class _MyHomePageState extends State<MyHomePage> {
         },
       ),
       ListTile(
-        title: Text('Select Today ${DateTime.now()} and Move Today'),
+        title: Text('Select Today ${DateTime.now()} and Jump to Today'),
         onTap: () {
           setState(() {
             selectedDateTime = DateTime.now();
           });
-          controller.moveTo(selectedDateTime);
+          controller.jumpTo(selectedDateTime);
         },
       ),
       ListTile(
-        title: Text('Move to 1970, 01, 01'),
+        title: Text('Animate to 1970, 01, 01'),
         onTap: () {
-          controller.moveTo(DateTime(1970, 01, 01));
+          controller.animateTo(DateTime(1970, 01, 01));
         },
       ),
       ListTile(
-        title: Text('Move to 2035, 12, 31'),
+        title: Text('Jump to 2035, 12, 31'),
         onTap: () {
-          controller.moveTo(DateTime(2035, 12, 31));
+          controller.jumpTo(DateTime(2035, 12, 31));
         },
       ),
       ListTile(

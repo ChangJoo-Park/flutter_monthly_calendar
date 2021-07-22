@@ -149,13 +149,22 @@ class MonthlyCalendarState extends State<MonthlyCalendar> {
 
   void _listenMonthlyCalendarController() {
     switch (widget.controller!.lastAction) {
-      case MonthlyCalendarControllerAction.moveTo:
+      case MonthlyCalendarControllerAction.jumpTo:
         DateTime target = DateTime(widget.controller!.moveTargetDateTime.year,
             widget.controller!.moveTargetDateTime.month, 1);
-
         int index = months.indexOf(target);
 
         if (index < 0) return;
+
+        pageController.jumpToPage(index);
+        break;
+      case MonthlyCalendarControllerAction.animateTo:
+        DateTime target = DateTime(widget.controller!.moveTargetDateTime.year,
+            widget.controller!.moveTargetDateTime.month, 1);
+        int index = months.indexOf(target);
+
+        if (index < 0) return;
+
         var theme = DefaultMonthlyCalendarThemeData();
 
         pageController.animateToPage(

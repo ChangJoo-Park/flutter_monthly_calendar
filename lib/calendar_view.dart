@@ -44,52 +44,56 @@ class CalendarViewState extends State<CalendarView> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Table(
-        border: widget.theme.calendarTableBorder,
-        defaultColumnWidth: widget.theme.defaultColumnWidth,
-        textBaseline: widget.theme.textBaseline,
-        textDirection: widget.theme.textDirection,
-        children: [
-          TableRow(
-              children: weekdays
-                  .map((weekday) =>
-                      CalendarHeader(weekday: weekday, theme: widget.theme))
-                  .toList()),
-          ...allDays
-              .map((List<DateTime> row) => TableRow(
-                    children: row
-                        .map(
-                          (datetime) => CalendarCell(
-                            theme: widget.theme,
-                            onLongPressed: (datetime) {
-                              if (widget.onCellLongPress != null) {
-                                widget.onCellLongPress!(datetime);
-                              }
-                            },
-                            datetime: datetime,
-                            isSameMonth: datetime.toLocal().isSameYearMonth(
-                                widget.monthDateTime.toLocal()),
-                            isSelected: widget.selectedDateTime == null
-                                ? false
-                                : datetime.toLocal().isSameYearMonthDay(
-                                    widget.selectedDateTime!.toLocal()),
-                            isToday: datetime
-                                .isSameYearMonthDay(DateTime.now().toLocal()),
-                            key: ValueKey(
-                                'CALENDAR_CELL_${datetime.toIso8601String()}'),
-                            onTap: (selected) {
-                              if (widget.onDateTimeSelected != null) {
-                                widget.onDateTimeSelected!(selected);
-                              }
-                            },
-                          ),
-                        )
-                        .toList(),
-                  ))
-              .toList()
-        ],
-      ),
+    return Table(
+      border: widget.theme.calendarTableBorder,
+      defaultColumnWidth: widget.theme.defaultColumnWidth,
+      textBaseline: widget.theme.textBaseline,
+      textDirection: widget.theme.textDirection,
+      children: [
+        TableRow(children: generateHeader()),
+        ...allDays.map(generateDayRow).toList()
+      ],
+    );
+  }
+
+  List<CalendarHeader> generateHeader() {
+    return weekdays
+        .map((weekday) => CalendarHeader(weekday: weekday, theme: widget.theme))
+        .toList();
+  }
+
+  TableRow generateDayRow(List<DateTime> row) =>
+      TableRow(children: row.map(generateCalendarCell).toList());
+
+  CalendarCell generateCalendarCell(DateTime datetime) {
+    bool isSameYearMonth =
+        datetime.toLocal().isSameYearMonth(widget.monthDateTime.toLocal());
+
+    bool isSelected = widget.selectedDateTime == null
+        ? false
+        : datetime
+            .toLocal()
+            .isSameYearMonthDay(widget.selectedDateTime!.toLocal());
+
+    bool isToday = datetime.isSameYearMonthDay(DateTime.now().toLocal());
+
+    return CalendarCell(
+      key: ValueKey('CALENDAR_CELL_${datetime.toIso8601String()}'),
+      theme: widget.theme,
+      datetime: datetime,
+      isSameMonth: isSameYearMonth,
+      isSelected: isSelected,
+      isToday: isToday,
+      onTap: (selected) {
+        if (widget.onDateTimeSelected != null) {
+          widget.onDateTimeSelected!(selected);
+        }
+      },
+      onLongPressed: (datetime) {
+        if (widget.onCellLongPress != null) {
+          widget.onCellLongPress!(datetime);
+        }
+      },
     );
   }
 }
