@@ -37,8 +37,9 @@ class _MyHomePageState extends State<MyHomePage> {
   late String title = '선택해주세요.';
   late EventCalendarController controller;
   late EventCalendarThemeData theme = DefaultEventCalendarThemeData();
+  EventCalendarLocale locale = EnglishEventCalendarLocale();
   int firstWeekday = DateTime.monday;
-
+  bool shortHeader = true;
   @override
   void initState() {
     selectedDateTime = widget.selectedDateTime;
@@ -66,9 +67,9 @@ class _MyHomePageState extends State<MyHomePage> {
             child: EventCalendar(
               controller: controller,
               firstWeekday: firstWeekday,
-              shortHeader: true,
+              shortHeader: shortHeader,
               theme: theme,
-              locale: KoreanEventCalendarLocale(),
+              locale: locale,
               startDateTime: widget.startDateTime,
               endDateTime: widget.endDateTime,
               selectedDateTime: selectedDateTime,
@@ -164,6 +165,30 @@ class _MyHomePageState extends State<MyHomePage> {
               onTap: () {
                 setState(() {
                   firstWeekday = DateTime.saturday;
+                });
+              },
+            ),
+            ListTile(
+              title: Text('Change locale to Korean'),
+              onTap: () {
+                setState(() {
+                  locale = KoreanEventCalendarLocale();
+                });
+              },
+            ),
+            ListTile(
+              title: Text('Change locale to English'),
+              onTap: () {
+                setState(() {
+                  locale = EnglishEventCalendarLocale();
+                });
+              },
+            ),
+            ListTile(
+              title: Text('Toggle weekday type'),
+              onTap: () {
+                setState(() {
+                  shortHeader = !shortHeader;
                 });
               },
             ),
