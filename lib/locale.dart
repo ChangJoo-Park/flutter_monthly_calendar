@@ -7,7 +7,7 @@ class EnglishMonthlyCalendarLocale implements MonthlyCalendarLocale {
   const EnglishMonthlyCalendarLocale();
   @override
   List<String> get weekdaysShort =>
-      const ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'];
+      const ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
   @override
   List<String> get weekdaysLong => const [
