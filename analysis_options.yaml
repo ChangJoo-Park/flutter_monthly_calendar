@@ -1,1 +1,1 @@
-include: package:lints/recommended.yaml
+linter: package:lints/recommended.yaml
