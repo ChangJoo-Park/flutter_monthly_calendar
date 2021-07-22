@@ -29,17 +29,16 @@ class CalendarView extends StatefulWidget {
 }
 
 class CalendarViewState extends State<CalendarView> {
-  late List<String> weekdays = [];
-  late final DateTime initialDateTime;
-  List<DateTime> days = [];
-  List<List<DateTime>> allDays = [];
+  List<String> get weekdays => List<String>.from(widget.weekdays)
+      .rotateRight<String>(getDiffFromWeekday(widget.firstWeekday));
+
+  List<DateTime> get days =>
+      generateMonth(widget.monthDateTime.toLocal(), widget.firstWeekday);
+
+  List<List<DateTime>> get allDays => days.chunk(7);
 
   @override
   void initState() {
-    weekdays = List.from(widget.weekdays)
-        .rotateRight(getDiffFromWeekday(widget.firstWeekday));
-    days = generateMonth(widget.monthDateTime.toLocal(), widget.firstWeekday);
-    allDays = days.chunk(7);
     super.initState();
   }
 

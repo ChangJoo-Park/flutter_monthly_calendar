@@ -64,10 +64,12 @@ class EventCalendar extends StatefulWidget {
 
 class EventCalendarState extends State<EventCalendar> {
   late final PageController pageController;
-  late final List<DateTime> months;
+
+  List<DateTime> get months =>
+      generateCalendar(widget.startDateTime, widget.endDateTime);
+
   @override
   void initState() {
-    months = generateCalendar(widget.startDateTime, widget.endDateTime);
     pageController = PageController(initialPage: _initialPage);
 
     if (widget.controller != null) {
