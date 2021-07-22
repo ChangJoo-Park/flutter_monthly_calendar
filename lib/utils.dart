@@ -17,7 +17,17 @@ extension ListMutation on List {
   List<E> rotateRight<E>(int amount) => rotate(amount, true);
   List<E> rotateLeft<E>(int amount) => rotate(amount, false);
 
-  List<List<E>> chunk<E>(int chunkSize) {
+  /// Chunk List by [chunkSize]
+  ///
+  /// ```dart
+  /// [1,2,3].chunkBy(0) == [1, 2, 3]
+  /// [1,2,3].chunkBy(1) == [[1], [2], [3]]
+  /// [1,2,3].chunkBy(2) == [[1, 2], [3]]
+  /// ```
+  ///
+  /// [chunkSize] is always positive integer.
+  /// When use `[1,2,3].chunkBy(-1)`, It makes [RangeError]
+  List<List<E>> chunkBy<E>(int chunkSize) {
     if (chunkSize.isNegative) throw RangeError.range(chunkSize, 0, null);
 
     List<List<E>> chunks = [];

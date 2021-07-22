@@ -6,13 +6,13 @@ void main() {
     List source = List.generate(100, (index) => index);
 
     test('chunked list by 2 length is 50',
-        () => expect(source.chunk(2).length, (100 / 2).ceil()));
+        () => expect(source.chunkBy(2).length, (100 / 2).ceil()));
     test('chunk list by 3 length is 34',
-        () => expect(source.chunk(3).length, (100 / 3).ceil()));
+        () => expect(source.chunkBy(3).length, (100 / 3).ceil()));
 
-    test('chunk empty list', () => expect([].chunk(3).length, 0));
+    test('chunk empty list', () => expect([].chunkBy(3).length, 0));
     test('chunk list by minus will be throw RangeError',
-        () => expect(() => source.chunk(-50), throwsA(isA<RangeError>())));
+        () => expect(() => source.chunkBy(-50), throwsA(isA<RangeError>())));
   });
 
   group('ListMutation extension for rotate', () {

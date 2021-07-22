@@ -35,7 +35,7 @@ class CalendarViewState extends State<CalendarView> {
   List<DateTime> get days =>
       generateMonth(widget.monthDateTime.toLocal(), widget.firstWeekday);
 
-  List<List<DateTime>> get allDays => days.chunk(7);
+  List<List<DateTime>> get allDays => days.chunkBy(7);
 
   @override
   void initState() {

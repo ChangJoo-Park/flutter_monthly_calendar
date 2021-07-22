@@ -36,7 +36,7 @@ void main() {
     final state = tester.state<CalendarViewState>(calendarViewFinder);
 
     expect(state.days, generateMonth(datetime, firstWeekday));
-    expect(state.allDays, generateMonth(datetime, firstWeekday).chunk(7));
+    expect(state.allDays, generateMonth(datetime, firstWeekday).chunkBy(7));
     expect(
       state.weekdays,
       KoreanMonthlyCalendarLocale().weekdaysShort.rotateRight(
