@@ -1,3 +1,11 @@
+/// base abstract class for Locale.
+///
+/// You can pass locale to [MonthlyCalendar].
+/// flutter_monthly_calendar supports sevral locales. but If you need yours, just implements from [MonthlyCalendarLocale].
+///
+/// ```dart
+/// class YouCountryMonthlyCalendarLocale implements MonthlyCalendarLocale {}
+/// ```
 abstract class MonthlyCalendarLocale {
   List<String> get weekdaysLong;
   List<String> get weekdaysShort;
