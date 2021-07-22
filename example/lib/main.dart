@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Flutter Monthly Calendar Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -34,7 +34,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   late DateTime selectedDateTime;
-  late String title = '선택해주세요.';
+  late String title = '';
   late MonthlyCalendarController controller;
   late MonthlyCalendarThemeData theme = DefaultMonthlyCalendarThemeData();
   MonthlyCalendarLocale locale = EnglishMonthlyCalendarLocale();
@@ -43,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     selectedDateTime = widget.selectedDateTime;
-    title = '${selectedDateTime.year}년 ${selectedDateTime.month}월';
+    title = '${selectedDateTime.month}/${selectedDateTime.year}';
     controller = MonthlyCalendarController();
     super.initState();
   }
@@ -64,6 +64,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           SliverToBoxAdapter(
+            /// Implement [MonthlyCalendar] here.
+            ///
             child: MonthlyCalendar(
               controller: controller,
               firstWeekday: firstWeekday,
@@ -74,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
               endDateTime: widget.endDateTime,
               selectedDateTime: selectedDateTime,
               onMonthChanged: (DateTime dt) {
-                setState(() => title = '${dt.year}년 ${dt.month}월');
+                setState(() => title = '${dt.month}/${dt.year}');
               },
               onSelectedDateChanged: (value) {
                 setState(() => selectedDateTime = value);
@@ -87,114 +89,117 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(child: Text('선택한 날짜')),
+                  Container(child: Text('Selected Date')),
                   Container(
                       child: Text(
-                    '${selectedDateTime.year}년 ${selectedDateTime.month}월 ${selectedDateTime.day}일',
+                    '${selectedDateTime.day}. ${selectedDateTime.month}. ${selectedDateTime.year}',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   )),
                 ],
               ),
             ),
           ),
-          SliverList(
-              delegate: SliverChildListDelegate.fixed([
-            ListTile(
-              title: Text('Change Theme to Default'),
-              onTap: () {
-                setState(() {
-                  theme = DefaultMonthlyCalendarThemeData();
-                });
-              },
-            ),
-            ListTile(
-              title: Text('Change Theme to Neumorphism'),
-              onTap: () {
-                setState(() {
-                  theme = NeumorphicMonthlyCalendarThemeData();
-                });
-              },
-            ),
-            ListTile(
-              title: Text('Change Theme to CyberFunk'),
-              onTap: () {
-                setState(() {
-                  theme = CyberFunkMonthlyCalendarThemeData();
-                });
-              },
-            ),
-            ListTile(
-              title: Text('Select Today ${DateTime.now()} and Move Today'),
-              onTap: () {
-                setState(() {
-                  selectedDateTime = DateTime.now();
-                });
-                controller.moveTo(selectedDateTime);
-              },
-            ),
-            ListTile(
-              title: Text('Move to 1970, 01, 01'),
-              onTap: () {
-                controller.moveTo(DateTime(1970, 01, 01));
-              },
-            ),
-            ListTile(
-              title: Text('Move to 2035, 12, 31'),
-              onTap: () {
-                controller.moveTo(DateTime(2035, 12, 31));
-              },
-            ),
-            ListTile(
-              title: Text('Change first weekday to Monday'),
-              onTap: () {
-                setState(() {
-                  firstWeekday = DateTime.monday;
-                });
-              },
-            ),
-            ListTile(
-              title: Text('Change first weekday to Sunday'),
-              onTap: () {
-                setState(() {
-                  firstWeekday = DateTime.sunday;
-                });
-              },
-            ),
-            ListTile(
-              title: Text('Change first weekday to Saturday'),
-              onTap: () {
-                setState(() {
-                  firstWeekday = DateTime.saturday;
-                });
-              },
-            ),
-            ListTile(
-              title: Text('Change locale to Korean'),
-              onTap: () {
-                setState(() {
-                  locale = KoreanMonthlyCalendarLocale();
-                });
-              },
-            ),
-            ListTile(
-              title: Text('Change locale to English'),
-              onTap: () {
-                setState(() {
-                  locale = EnglishMonthlyCalendarLocale();
-                });
-              },
-            ),
-            ListTile(
-              title: Text('Toggle weekday type'),
-              onTap: () {
-                setState(() {
-                  shortHeader = !shortHeader;
-                });
-              },
-            ),
-          ])),
+          SliverList(delegate: SliverChildListDelegate.fixed(getOptionList)),
         ],
       ),
     );
+  }
+
+  List<Widget> get getOptionList {
+    return [
+      ListTile(
+        title: Text('Change Theme to Default'),
+        onTap: () {
+          setState(() {
+            theme = DefaultMonthlyCalendarThemeData();
+          });
+        },
+      ),
+      ListTile(
+        title: Text('Change Theme to Neumorphism'),
+        onTap: () {
+          setState(() {
+            theme = NeumorphicMonthlyCalendarThemeData();
+          });
+        },
+      ),
+      ListTile(
+        title: Text('Change Theme to CyberFunk'),
+        onTap: () {
+          setState(() {
+            theme = CyberFunkMonthlyCalendarThemeData();
+          });
+        },
+      ),
+      ListTile(
+        title: Text('Select Today ${DateTime.now()} and Move Today'),
+        onTap: () {
+          setState(() {
+            selectedDateTime = DateTime.now();
+          });
+          controller.moveTo(selectedDateTime);
+        },
+      ),
+      ListTile(
+        title: Text('Move to 1970, 01, 01'),
+        onTap: () {
+          controller.moveTo(DateTime(1970, 01, 01));
+        },
+      ),
+      ListTile(
+        title: Text('Move to 2035, 12, 31'),
+        onTap: () {
+          controller.moveTo(DateTime(2035, 12, 31));
+        },
+      ),
+      ListTile(
+        title: Text('Change first weekday to Monday'),
+        onTap: () {
+          setState(() {
+            firstWeekday = DateTime.monday;
+          });
+        },
+      ),
+      ListTile(
+        title: Text('Change first weekday to Sunday'),
+        onTap: () {
+          setState(() {
+            firstWeekday = DateTime.sunday;
+          });
+        },
+      ),
+      ListTile(
+        title: Text('Change first weekday to Saturday'),
+        onTap: () {
+          setState(() {
+            firstWeekday = DateTime.saturday;
+          });
+        },
+      ),
+      ListTile(
+        title: Text('Change locale to Korean'),
+        onTap: () {
+          setState(() {
+            locale = KoreanMonthlyCalendarLocale();
+          });
+        },
+      ),
+      ListTile(
+        title: Text('Change locale to English'),
+        onTap: () {
+          setState(() {
+            locale = EnglishMonthlyCalendarLocale();
+          });
+        },
+      ),
+      ListTile(
+        title: Text('Toggle weekday type'),
+        onTap: () {
+          setState(() {
+            shortHeader = !shortHeader;
+          });
+        },
+      ),
+    ];
   }
 }
