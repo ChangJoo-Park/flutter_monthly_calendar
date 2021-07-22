@@ -40,17 +40,22 @@ extension ListMutation on List {
   }
 }
 
-extension DateComparison on DateTime {
-  bool isSameYear(datetime) => year == datetime.year;
+extension DateTimeExtension on DateTime {
+  /// Compare year by target datetime.
+  bool isSameYear(DateTime datetime) => year == datetime.year;
 
-  bool isSameMonth(datetime) => month == datetime.month;
+  /// Compare month by target datetime.
+  bool isSameMonth(DateTime datetime) => month == datetime.month;
 
-  bool isSameDay(datetime) => day == datetime.day;
+  /// Compare day by target datetime.
+  bool isSameDay(DateTime datetime) => day == datetime.day;
 
-  bool isSameYearMonth(datetime) =>
+  /// Compare year and month by target datetime.
+  bool isSameYearMonth(DateTime datetime) =>
       isSameYear(datetime) && isSameMonth(datetime);
 
-  bool isSameYearMonthDay(datetime) =>
+  /// Compare year and month and day by target datetime.
+  bool isSameYearMonthDay(DateTime datetime) =>
       isSameYear(datetime) && isSameMonth(datetime) && isSameDay(datetime);
 
   /// Get difference from two datetimes.
@@ -77,6 +82,14 @@ extension DateComparison on DateTime {
     return diff;
   }
 
+  /// Add month to base [DateTime]
+  ///
+  /// [Duration] has no month parameters, So If you need add month to base [DateTime], use this method.
+  ///
+  /// ```dart
+  /// DateTime(2021, 02, 01).addMonth(1) == DateTime(2021, 03, 01)
+  /// DateTime(2021, 02, 01).addMonth(-1) == DateTime(2021, 02, 01)
+  /// ```
   DateTime addMonth(int amount) => DateTime(year, month + amount, day);
 }
 
