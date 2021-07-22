@@ -109,20 +109,4 @@ List<DateTime> generateCalendar(DateTime startDateTime, DateTime endDateTime) {
   );
 }
 
-int getDiffFromWeekday(int weekday) {
-  var diff = 0;
-
-  switch (weekday) {
-    case DateTime.monday:
-      diff = 0;
-      break;
-    case DateTime.sunday:
-      diff = 1;
-      break;
-    case DateTime.saturday:
-      diff = 2;
-      break;
-    default:
-  }
-  return diff;
-}
+int getDiffFromWeekday(int weekday) => DateTime.daysPerWeek - weekday + 1;
