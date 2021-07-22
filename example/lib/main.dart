@@ -37,6 +37,8 @@ class _MyHomePageState extends State<MyHomePage> {
   late String title = '선택해주세요.';
   late EventCalendarController controller;
   late EventCalendarThemeData theme = DefaultEventCalendarThemeData();
+  int firstWeekday = DateTime.monday;
+
   @override
   void initState() {
     selectedDateTime = widget.selectedDateTime;
@@ -63,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
           SliverToBoxAdapter(
             child: EventCalendar(
               controller: controller,
-              firstWeekday: DateTime.monday,
+              firstWeekday: firstWeekday,
               shortHeader: true,
               theme: theme,
               locale: KoreanEventCalendarLocale(),
@@ -139,6 +141,30 @@ class _MyHomePageState extends State<MyHomePage> {
               title: Text('Move to 2035, 12, 31'),
               onTap: () {
                 controller.moveTo(DateTime(2035, 12, 31));
+              },
+            ),
+            ListTile(
+              title: Text('Change first weekday to Monday'),
+              onTap: () {
+                setState(() {
+                  firstWeekday = DateTime.monday;
+                });
+              },
+            ),
+            ListTile(
+              title: Text('Change first weekday to Sunday'),
+              onTap: () {
+                setState(() {
+                  firstWeekday = DateTime.sunday;
+                });
+              },
+            ),
+            ListTile(
+              title: Text('Change first weekday to Saturday'),
+              onTap: () {
+                setState(() {
+                  firstWeekday = DateTime.saturday;
+                });
               },
             ),
           ])),
