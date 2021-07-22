@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
 
+/// base of MonthlyCalendarData
+///
+/// If you need new ThemeData for you project,
+/// You can `implements` this class.
+///
+/// ```dart
+/// class YourAwesomeMonthlyCalendarThemeData implements  MonthlyCalendarThemeData {}
+/// ```
 abstract class MonthlyCalendarThemeData {
   Duration defaultDuration = Duration(milliseconds: 200);
   Curve defaultCurve = Curves.fastOutSlowIn;
@@ -147,7 +155,6 @@ class DefaultMonthlyCalendarThemeData implements MonthlyCalendarThemeData {
       TableCellVerticalAlignment.middle;
 }
 
-/// CyberFunk 2077 like color scheme
 class CyberFunkMonthlyCalendarThemeData implements MonthlyCalendarThemeData {
   @override
   BoxDecoration calendarBoxDecoration = BoxDecoration();
