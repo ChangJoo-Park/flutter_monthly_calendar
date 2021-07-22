@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-abstract class EventCalendarThemeData {
+abstract class MonthlyCalendarThemeData {
   Duration defaultDuration = Duration(milliseconds: 200);
   Curve defaultCurve = Curves.fastOutSlowIn;
   // Container
@@ -37,7 +37,7 @@ abstract class EventCalendarThemeData {
   late Alignment cellAlignment;
 }
 
-class DefaultEventCalendarThemeData implements EventCalendarThemeData {
+class DefaultMonthlyCalendarThemeData implements MonthlyCalendarThemeData {
   @override
   BoxDecoration calendarBoxDecoration = BoxDecoration();
 
@@ -148,7 +148,7 @@ class DefaultEventCalendarThemeData implements EventCalendarThemeData {
 }
 
 /// CyberFunk 2077 like color scheme
-class CyberFunkEventCalendarThemeData implements EventCalendarThemeData {
+class CyberFunkMonthlyCalendarThemeData implements MonthlyCalendarThemeData {
   @override
   BoxDecoration calendarBoxDecoration = BoxDecoration();
 
@@ -258,7 +258,7 @@ class CyberFunkEventCalendarThemeData implements EventCalendarThemeData {
       TableCellVerticalAlignment.middle;
 }
 
-class NeumorphicEventCalendarThemeData implements EventCalendarThemeData {
+class NeumorphicMonthlyCalendarThemeData implements MonthlyCalendarThemeData {
   @override
   BoxDecoration calendarBoxDecoration = BoxDecoration(
     borderRadius: BorderRadius.circular(6.0),

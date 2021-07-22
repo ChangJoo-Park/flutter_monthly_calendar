@@ -1,12 +1,12 @@
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('EventCalendar', (WidgetTester tester) async {
+  testWidgets('MonthlyCalendar', (WidgetTester tester) async {
     // var key =
-    //     GlobalKey<State<EventCalendar>>(); // FIXME : used multiple widgets?
+    //     GlobalKey<State<MonthlyCalendar>>(); // FIXME : used multiple widgets?
     // var startDateTime = DateTime(2021, 1);
     // var endDateTime = DateTime(2021, 12);
-    // var eventCalendar = EventCalendar(
+    // var eventCalendar = MonthlyCalendar(
     //   key: key,
     //   startDateTime: startDateTime,
     //   endDateTime: endDateTime,
@@ -21,9 +21,9 @@ void main() {
     // expect(eventCalendar.startDateTime, startDateTime);
     // expect(eventCalendar.endDateTime, endDateTime);
     // expect(eventCalendar.pageViewEstimateHeight, 350);
-    // expect(eventCalendar.locale, const EnglishEventCalendarLocale());
+    // expect(eventCalendar.locale, const EnglishMonthlyCalendarLocale());
     // expect(eventCalendar.scrollPhysics, const PageScrollPhysics());
     // expect(eventCalendar.theme, null);
-    // final state = tester.state<EventCalendarState>(eventCalendarFinder);
+    // final state = tester.state<MonthlyCalendarState>(eventCalendarFinder);
   });
 }

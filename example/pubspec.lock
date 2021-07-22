@@ -69,7 +69,7 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_event_calendar:
+  flutter_monthly_calendar:
     dependency: "direct dev"
     description:
       path: ".."

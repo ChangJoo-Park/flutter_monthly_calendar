@@ -1,4 +1,4 @@
-import 'package:flutter_event_calendar/themes.dart';
+import 'package:flutter_monthly_calendar/themes.dart';
 import 'package:flutter/material.dart';
 
 class CalendarCell extends StatefulWidget {
@@ -19,7 +19,7 @@ class CalendarCell extends StatefulWidget {
   final bool isSameMonth;
   final Function(DateTime selected)? onTap;
   final Function(DateTime selected)? onLongPressed;
-  final EventCalendarThemeData theme;
+  final MonthlyCalendarThemeData theme;
 
   @override
   CalendarCellState createState() => CalendarCellState();

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_event_calendar/calendar_cell.dart';
-import 'package:flutter_event_calendar/event_calendar.dart';
+import 'package:flutter_monthly_calendar/calendar_cell.dart';
+import 'package:flutter_monthly_calendar/monthly_calendar.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -11,7 +11,7 @@ void main() {
     var longPressLogs = <DateTime>[];
     var calendarCell = CalendarCell(
       datetime: datetime,
-      theme: DefaultEventCalendarThemeData(),
+      theme: DefaultMonthlyCalendarThemeData(),
       onTap: (selected) {
         tapLogs.add(selected);
       },
@@ -52,7 +52,7 @@ void main() {
     var calendarCell = CalendarCell(
       key: key,
       datetime: datetime,
-      theme: DefaultEventCalendarThemeData(),
+      theme: DefaultMonthlyCalendarThemeData(),
       isSelected: true,
     );
 
@@ -74,9 +74,9 @@ void main() {
     expect(calendarCellFinder, findsOneWidget);
     final state = tester.state<CalendarCellState>(calendarCellFinder);
     expect(state.cellDecoration,
-        DefaultEventCalendarThemeData().selectedCellBoxDecoration);
+        DefaultMonthlyCalendarThemeData().selectedCellBoxDecoration);
     expect(state.cellTextStyle,
-        DefaultEventCalendarThemeData().selectedCellTextStyle);
+        DefaultMonthlyCalendarThemeData().selectedCellTextStyle);
   });
 
   testWidgets(
@@ -87,7 +87,7 @@ void main() {
     var calendarCell = CalendarCell(
       key: key,
       datetime: datetime,
-      theme: DefaultEventCalendarThemeData(),
+      theme: DefaultMonthlyCalendarThemeData(),
       isSameMonth: true,
       isSelected: true,
     );
@@ -110,9 +110,9 @@ void main() {
     expect(calendarCellFinder, findsOneWidget);
     final state = tester.state<CalendarCellState>(calendarCellFinder);
     expect(state.cellDecoration,
-        DefaultEventCalendarThemeData().selectedCellBoxDecoration);
+        DefaultMonthlyCalendarThemeData().selectedCellBoxDecoration);
     expect(state.cellTextStyle,
-        DefaultEventCalendarThemeData().selectedCellTextStyle);
+        DefaultMonthlyCalendarThemeData().selectedCellTextStyle);
   });
 
   testWidgets('Calendar Cell with isSameMonth.', (WidgetTester tester) async {
@@ -121,7 +121,7 @@ void main() {
     var calendarCell = CalendarCell(
       key: key,
       datetime: datetime,
-      theme: DefaultEventCalendarThemeData(),
+      theme: DefaultMonthlyCalendarThemeData(),
       isSameMonth: true,
       isToday: true,
     );
@@ -144,8 +144,8 @@ void main() {
     expect(calendarCellFinder, findsOneWidget);
     final state = tester.state<CalendarCellState>(calendarCellFinder);
     expect(state.cellDecoration,
-        DefaultEventCalendarThemeData().todayCellBoxDecoration);
+        DefaultMonthlyCalendarThemeData().todayCellBoxDecoration);
     expect(state.cellTextStyle,
-        DefaultEventCalendarThemeData().todayCellTextStyle);
+        DefaultMonthlyCalendarThemeData().todayCellTextStyle);
   });
 }

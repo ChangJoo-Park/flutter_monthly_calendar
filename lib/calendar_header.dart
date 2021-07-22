@@ -1,4 +1,4 @@
-import 'package:flutter_event_calendar/themes.dart';
+import 'package:flutter_monthly_calendar/themes.dart';
 import 'package:flutter/material.dart';
 
 class CalendarHeader extends StatelessWidget {
@@ -6,7 +6,7 @@ class CalendarHeader extends StatelessWidget {
       : super(key: key);
 
   final String weekday;
-  final EventCalendarThemeData theme;
+  final MonthlyCalendarThemeData theme;
 
   @override
   Widget build(BuildContext context) {

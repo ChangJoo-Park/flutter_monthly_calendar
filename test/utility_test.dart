@@ -1,4 +1,4 @@
-import 'package:flutter_event_calendar/utils.dart';
+import 'package:flutter_monthly_calendar/utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

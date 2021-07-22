@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_event_calendar/calendar_header.dart';
-import 'package:flutter_event_calendar/event_calendar.dart';
+import 'package:flutter_monthly_calendar/calendar_header.dart';
+import 'package:flutter_monthly_calendar/monthly_calendar.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -14,7 +14,7 @@ void main() {
             TableRow(children: [
               CalendarHeader(
                 weekday: '월',
-                theme: DefaultEventCalendarThemeData(),
+                theme: DefaultMonthlyCalendarThemeData(),
               )
             ])
           ],

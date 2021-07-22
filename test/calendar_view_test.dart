@@ -1,24 +1,24 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_event_calendar/calendar_cell.dart';
-import 'package:flutter_event_calendar/calendar_header.dart';
-import 'package:flutter_event_calendar/calendar_view.dart';
-import 'package:flutter_event_calendar/event_calendar.dart';
-import 'package:flutter_event_calendar/utils.dart';
+import 'package:flutter_monthly_calendar/calendar_cell.dart';
+import 'package:flutter_monthly_calendar/calendar_header.dart';
+import 'package:flutter_monthly_calendar/calendar_view.dart';
+import 'package:flutter_monthly_calendar/monthly_calendar.dart';
+import 'package:flutter_monthly_calendar/utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   testWidgets('Calendar View', (WidgetTester tester) async {
     var tapLogs = [];
     var longPressLogs = [];
-    var theme = DefaultEventCalendarThemeData();
+    var theme = DefaultMonthlyCalendarThemeData();
     var key = Key('CALENDAR_VIEW');
     var datetime = DateTime(2021, 07, 01);
     var firstWeekday = DateTime.monday;
     var calendarView = CalendarView(
       monthDateTime: datetime,
       selectedDateTime: null,
-      weekdays: KoreanEventCalendarLocale().weekdaysShort,
+      weekdays: KoreanMonthlyCalendarLocale().weekdaysShort,
       firstWeekday: firstWeekday,
       theme: theme,
       key: key,
@@ -39,7 +39,7 @@ void main() {
     expect(state.allDays, generateMonth(datetime, firstWeekday).chunk(7));
     expect(
       state.weekdays,
-      KoreanEventCalendarLocale().weekdaysShort.rotateRight(
+      KoreanMonthlyCalendarLocale().weekdaysShort.rotateRight(
             getDiffFromWeekday(firstWeekday),
           ),
     );

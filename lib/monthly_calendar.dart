@@ -1,8 +1,8 @@
-import 'package:flutter_event_calendar/calendar_view.dart';
-import 'package:flutter_event_calendar/event_calendar_controller.dart';
-import 'package:flutter_event_calendar/locale.dart';
-import 'package:flutter_event_calendar/themes.dart';
-import 'package:flutter_event_calendar/utils.dart';
+import 'package:flutter_monthly_calendar/calendar_view.dart';
+import 'package:flutter_monthly_calendar/event_calendar_controller.dart';
+import 'package:flutter_monthly_calendar/locale.dart';
+import 'package:flutter_monthly_calendar/themes.dart';
+import 'package:flutter_monthly_calendar/utils.dart';
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 
@@ -10,14 +10,14 @@ export 'themes.dart';
 export 'locale.dart';
 export 'event_calendar_controller.dart';
 
-class EventCalendar extends StatefulWidget {
-  EventCalendar({
+class MonthlyCalendar extends StatefulWidget {
+  MonthlyCalendar({
     Key? key,
     required this.startDateTime,
     required this.endDateTime,
     this.shortHeader = true,
     this.selectedDateTime,
-    this.locale = const EnglishEventCalendarLocale(),
+    this.locale = const EnglishMonthlyCalendarLocale(),
     this.onMonthChanged,
     this.onSelectedDateChanged,
     this.firstWeekday = DateTime.monday,
@@ -34,7 +34,7 @@ class EventCalendar extends StatefulWidget {
           firstWeekday == DateTime.monday ||
               firstWeekday == DateTime.sunday ||
               firstWeekday == DateTime.saturday,
-          "EventCalendar support only Monday, Sunday, Saturday",
+          "MonthlyCalendar support only Monday, Sunday, Saturday",
         ),
         assert(startDateTime.isBefore(endDateTime)),
         super(key: key);
@@ -45,7 +45,7 @@ class EventCalendar extends StatefulWidget {
   final DateTime startDateTime;
   final DateTime endDateTime;
   final DateTime? selectedDateTime;
-  final EventCalendarLocale locale;
+  final MonthlyCalendarLocale locale;
   final ValueChanged<DateTime>? onMonthChanged;
   final ValueChanged<DateTime>? onSelectedDateChanged;
   final Duration pageViewAnimationDuration;
@@ -54,15 +54,15 @@ class EventCalendar extends StatefulWidget {
   final ScrollPhysics scrollPhysics;
   final String? restorationId;
   final Clip clipBehavior;
-  final EventCalendarThemeData? theme;
+  final MonthlyCalendarThemeData? theme;
   final Function(DateTime datetime)? onCellLongPress;
-  final EventCalendarController? controller;
+  final MonthlyCalendarController? controller;
 
   @override
-  EventCalendarState createState() => EventCalendarState();
+  MonthlyCalendarState createState() => MonthlyCalendarState();
 }
 
-class EventCalendarState extends State<EventCalendar> {
+class MonthlyCalendarState extends State<MonthlyCalendar> {
   late final PageController pageController;
 
   List<DateTime> get months =>
@@ -73,7 +73,7 @@ class EventCalendarState extends State<EventCalendar> {
     pageController = PageController(initialPage: _initialPage);
 
     if (widget.controller != null) {
-      widget.controller!.addListener(_listenEventCalendarController);
+      widget.controller!.addListener(_listenMonthlyCalendarController);
     }
     super.initState();
   }
@@ -107,7 +107,7 @@ class EventCalendarState extends State<EventCalendar> {
         key: widget.key,
         itemBuilder: (context, index) {
           return CalendarView(
-            theme: widget.theme ?? DefaultEventCalendarThemeData(),
+            theme: widget.theme ?? DefaultMonthlyCalendarThemeData(),
             firstWeekday: widget.firstWeekday,
             monthDateTime: months[index],
             selectedDateTime: widget.selectedDateTime,
@@ -147,16 +147,16 @@ class EventCalendarState extends State<EventCalendar> {
     }
   }
 
-  void _listenEventCalendarController() {
+  void _listenMonthlyCalendarController() {
     switch (widget.controller!.lastAction) {
-      case EventCalendarControllerAction.moveTo:
+      case MonthlyCalendarControllerAction.moveTo:
         DateTime target = DateTime(widget.controller!.moveTargetDateTime.year,
             widget.controller!.moveTargetDateTime.month, 1);
 
         int index = months.indexOf(target);
 
         if (index < 0) return;
-        var theme = DefaultEventCalendarThemeData();
+        var theme = DefaultMonthlyCalendarThemeData();
 
         pageController.animateToPage(
           index,

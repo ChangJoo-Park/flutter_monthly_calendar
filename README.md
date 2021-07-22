@@ -1,8 +1,14 @@
-# Flutter Event Calendar
+# Flutter Monthly Calendar
 
-- [ ] Add Previous, Next Event handler.
-- [ ] Add badge for event.
-- [ ] Support Long type locale.
-- [x] Support initialize month change
-- [ ] Support additional locales
-- [x] Support start of weekday (only Sunday, Monday, Saturday)
+A customizable montly calendar.
+
+## Interactive examples
+
+
+## How to use
+
+## Benchmarks
+
+## Contribute
+
+## Roadmap

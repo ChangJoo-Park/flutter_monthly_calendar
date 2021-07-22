@@ -1,10 +1,10 @@
-abstract class EventCalendarLocale {
+abstract class MonthlyCalendarLocale {
   List<String> get weekdaysLong;
   List<String> get weekdaysShort;
 }
 
-class EnglishEventCalendarLocale implements EventCalendarLocale {
-  const EnglishEventCalendarLocale();
+class EnglishMonthlyCalendarLocale implements MonthlyCalendarLocale {
+  const EnglishMonthlyCalendarLocale();
   @override
   List<String> get weekdaysShort =>
       const ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'];
@@ -21,8 +21,8 @@ class EnglishEventCalendarLocale implements EventCalendarLocale {
       ];
 }
 
-class KoreanEventCalendarLocale implements EventCalendarLocale {
-  const KoreanEventCalendarLocale();
+class KoreanMonthlyCalendarLocale implements MonthlyCalendarLocale {
+  const KoreanMonthlyCalendarLocale();
 
   @override
   List<String> get weekdaysShort => const ['월', '화', '수', '목', '금', '토', '일'];
@@ -32,8 +32,8 @@ class KoreanEventCalendarLocale implements EventCalendarLocale {
       const ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일'];
 }
 
-class SpanishEventCalendarLocale implements EventCalendarLocale {
-  const SpanishEventCalendarLocale();
+class SpanishMonthlyCalendarLocale implements MonthlyCalendarLocale {
+  const SpanishMonthlyCalendarLocale();
 
   @override
   List<String> get weekdaysShort =>
@@ -51,8 +51,8 @@ class SpanishEventCalendarLocale implements EventCalendarLocale {
       ];
 }
 
-class GermanEventCalendarLocale implements EventCalendarLocale {
-  const GermanEventCalendarLocale();
+class GermanMonthlyCalendarLocale implements MonthlyCalendarLocale {
+  const GermanMonthlyCalendarLocale();
 
   @override
   List<String> get weekdaysShort =>
@@ -70,8 +70,8 @@ class GermanEventCalendarLocale implements EventCalendarLocale {
       ];
 }
 
-class JapaneseEventCalendarLocale implements EventCalendarLocale {
-  const JapaneseEventCalendarLocale();
+class JapaneseMonthlyCalendarLocale implements MonthlyCalendarLocale {
+  const JapaneseMonthlyCalendarLocale();
 
   @override
   List<String> get weekdaysShort => const ["日", "月", "火", "水", "木", "金", "土"];
@@ -81,8 +81,8 @@ class JapaneseEventCalendarLocale implements EventCalendarLocale {
       const ["日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日"];
 }
 
-class VietnameseEventCalendarLocale implements EventCalendarLocale {
-  const VietnameseEventCalendarLocale();
+class VietnameseMonthlyCalendarLocale implements MonthlyCalendarLocale {
+  const VietnameseMonthlyCalendarLocale();
 
   @override
   List<String> get weekdaysShort =>
@@ -100,8 +100,8 @@ class VietnameseEventCalendarLocale implements EventCalendarLocale {
       ];
 }
 
-class ChineseEventCalendarLocale implements EventCalendarLocale {
-  const ChineseEventCalendarLocale();
+class ChineseMonthlyCalendarLocale implements MonthlyCalendarLocale {
+  const ChineseMonthlyCalendarLocale();
 
   @override
   List<String> get weekdaysShort =>

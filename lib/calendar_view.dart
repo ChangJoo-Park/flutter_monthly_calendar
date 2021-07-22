@@ -1,7 +1,7 @@
-import 'package:flutter_event_calendar/calendar_cell.dart';
-import 'package:flutter_event_calendar/calendar_header.dart';
-import 'package:flutter_event_calendar/themes.dart';
-import 'package:flutter_event_calendar/utils.dart';
+import 'package:flutter_monthly_calendar/calendar_cell.dart';
+import 'package:flutter_monthly_calendar/calendar_header.dart';
+import 'package:flutter_monthly_calendar/themes.dart';
+import 'package:flutter_monthly_calendar/utils.dart';
 import 'package:flutter/material.dart';
 
 class CalendarView extends StatefulWidget {
@@ -21,7 +21,7 @@ class CalendarView extends StatefulWidget {
   final DateTime? selectedDateTime;
   final ValueChanged<DateTime>? onDateTimeSelected;
   final List<String> weekdays;
-  final EventCalendarThemeData theme;
+  final MonthlyCalendarThemeData theme;
   final Function(DateTime value)? onCellLongPress;
 
   @override

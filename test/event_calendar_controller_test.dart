@@ -1,8 +1,8 @@
-import 'package:flutter_event_calendar/event_calendar.dart';
+import 'package:flutter_monthly_calendar/monthly_calendar.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  var eventCalendarController = EventCalendarController();
+  var eventCalendarController = MonthlyCalendarController();
   test('listen EventcalendarController', () {
     List<List> logs = [];
     eventCalendarController.addListener(() {
@@ -16,11 +16,11 @@ void main() {
     var now = DateTime.now();
     eventCalendarController.moveTo(now);
     expect(logs.length, 1);
-    expect(logs.first.first, EventCalendarControllerAction.moveTo);
+    expect(logs.first.first, MonthlyCalendarControllerAction.moveTo);
     expect(logs.first.last, now);
     eventCalendarController.moveTo(now);
     expect(logs.length, 2);
-    expect(logs[1].first, EventCalendarControllerAction.moveTo);
+    expect(logs[1].first, MonthlyCalendarControllerAction.moveTo);
     expect(logs[1].last, now);
   });
 }

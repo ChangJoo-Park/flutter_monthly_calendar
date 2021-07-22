@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_event_calendar/event_calendar.dart';
-import 'package:flutter_event_calendar/themes.dart';
+import 'package:flutter_monthly_calendar/monthly_calendar.dart';
+import 'package:flutter_monthly_calendar/themes.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Event Calendar'),
+      home: MyHomePage(title: 'Monthly Calendar'),
     );
   }
 }
@@ -35,16 +35,16 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   late DateTime selectedDateTime;
   late String title = '선택해주세요.';
-  late EventCalendarController controller;
-  late EventCalendarThemeData theme = DefaultEventCalendarThemeData();
-  EventCalendarLocale locale = EnglishEventCalendarLocale();
+  late MonthlyCalendarController controller;
+  late MonthlyCalendarThemeData theme = DefaultMonthlyCalendarThemeData();
+  MonthlyCalendarLocale locale = EnglishMonthlyCalendarLocale();
   int firstWeekday = DateTime.monday;
   bool shortHeader = true;
   @override
   void initState() {
     selectedDateTime = widget.selectedDateTime;
     title = '${selectedDateTime.year}년 ${selectedDateTime.month}월';
-    controller = EventCalendarController();
+    controller = MonthlyCalendarController();
     super.initState();
   }
 
@@ -64,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           SliverToBoxAdapter(
-            child: EventCalendar(
+            child: MonthlyCalendar(
               controller: controller,
               firstWeekday: firstWeekday,
               shortHeader: shortHeader,
@@ -103,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
               title: Text('Change Theme to Default'),
               onTap: () {
                 setState(() {
-                  theme = DefaultEventCalendarThemeData();
+                  theme = DefaultMonthlyCalendarThemeData();
                 });
               },
             ),
@@ -111,7 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
               title: Text('Change Theme to Neumorphism'),
               onTap: () {
                 setState(() {
-                  theme = NeumorphicEventCalendarThemeData();
+                  theme = NeumorphicMonthlyCalendarThemeData();
                 });
               },
             ),
@@ -119,7 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
               title: Text('Change Theme to CyberFunk'),
               onTap: () {
                 setState(() {
-                  theme = CyberFunkEventCalendarThemeData();
+                  theme = CyberFunkMonthlyCalendarThemeData();
                 });
               },
             ),
@@ -172,7 +172,7 @@ class _MyHomePageState extends State<MyHomePage> {
               title: Text('Change locale to Korean'),
               onTap: () {
                 setState(() {
-                  locale = KoreanEventCalendarLocale();
+                  locale = KoreanMonthlyCalendarLocale();
                 });
               },
             ),
@@ -180,7 +180,7 @@ class _MyHomePageState extends State<MyHomePage> {
               title: Text('Change locale to English'),
               onTap: () {
                 setState(() {
-                  locale = EnglishEventCalendarLocale();
+                  locale = EnglishMonthlyCalendarLocale();
                 });
               },
             ),
