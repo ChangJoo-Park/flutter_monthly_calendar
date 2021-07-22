@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 
-enum MonthlyCalendarControllerAction { moveTo }
+enum MonthlyCalendarControllerAction { jumpTo, animateTo }
 
 class MonthlyCalendarController extends ChangeNotifier {
   late DateTime moveTargetDateTime;
   late MonthlyCalendarControllerAction lastAction;
-  moveTo(DateTime datetime) {
+  jumpTo(DateTime datetime) {
     moveTargetDateTime = datetime;
-    lastAction = MonthlyCalendarControllerAction.moveTo;
+    lastAction = MonthlyCalendarControllerAction.jumpTo;
+    notifyListeners();
+  }
+
+  animateTo(DateTime datetime) {
+    moveTargetDateTime = datetime;
+    lastAction = MonthlyCalendarControllerAction.animateTo;
     notifyListeners();
   }
 }

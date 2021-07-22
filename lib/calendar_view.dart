@@ -65,7 +65,7 @@ class CalendarViewState extends State<CalendarView> {
   TableRow generateDayRow(List<DateTime> row) =>
       TableRow(children: row.map(generateCalendarCell).toList());
 
-  CalendarCell generateCalendarCell(datetime) {
+  CalendarCell generateCalendarCell(DateTime datetime) {
     bool isSameYearMonth =
         datetime.toLocal().isSameYearMonth(widget.monthDateTime.toLocal());
 
