@@ -1,20 +1,6 @@
-extension ListChunk on List {
-  List<List<T>> chunk<T>(int chunkSize) {
-    if (chunkSize.isNegative) throw RangeError.range(chunkSize, 0, null);
-
-    List<List<T>> chunks = [];
-    int len = length;
-    for (var i = 0; i < len; i += chunkSize) {
-      int size = i + chunkSize;
-      chunks.add(sublist(i, size > len ? len : size) as List<T>);
-    }
-    return chunks;
-  }
-}
-
 extension ListMutation on List {
-  List<T> rotate<T>(int amount, bool isRight) {
-    List<T> target = List.from(this);
+  List<E> rotate<E>(int amount, bool isRight) {
+    List<E> target = List.from(this);
 
     if (isRight) {
       for (var i = 0; i < amount; i++) {
@@ -28,8 +14,20 @@ extension ListMutation on List {
     return target;
   }
 
-  List<T> rotateRight<T>(int amount) => rotate(amount, true);
-  List<T> rotateLeft<T>(int amount) => rotate(amount, false);
+  List<E> rotateRight<E>(int amount) => rotate(amount, true);
+  List<E> rotateLeft<E>(int amount) => rotate(amount, false);
+
+  List<List<E>> chunk<E>(int chunkSize) {
+    if (chunkSize.isNegative) throw RangeError.range(chunkSize, 0, null);
+
+    List<List<E>> chunks = [];
+    int len = length;
+    for (var i = 0; i < len; i += chunkSize) {
+      int size = i + chunkSize;
+      chunks.add(sublist(i, size > len ? len : size) as List<E>);
+    }
+    return chunks;
+  }
 }
 
 extension DateComparison on DateTime {
