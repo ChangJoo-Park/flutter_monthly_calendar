@@ -87,41 +87,44 @@ class EventCalendarState extends State<EventCalendar> {
 
   @override
   Widget build(BuildContext context) {
-    return ExpandablePageView(
-      allowImplicitScrolling: true,
-      animateFirstPage: false,
-      estimatedPageSize: widget.pageViewEstimateHeight,
-      animationCurve: widget.pageViewAnimationCurve,
-      animationDuration: widget.pageViewAnimationDuration,
-      physics: widget.scrollPhysics,
-      pageSnapping: true,
-      controller: pageController,
-      itemCount: months.length,
-      clipBehavior: widget.clipBehavior,
-      restorationId: widget.restorationId,
-      onPageChanged: _onPageChanged,
-      key: widget.key,
-      itemBuilder: (context, index) {
-        return CalendarView(
-          theme: widget.theme ?? DefaultEventCalendarThemeData(),
-          firstWeekday: widget.firstWeekday,
-          monthDateTime: months[index],
-          selectedDateTime: widget.selectedDateTime,
-          onDateTimeSelected: (datetime) {
-            if (widget.onSelectedDateChanged != null) {
-              widget.onSelectedDateChanged!(datetime);
-            }
-          },
-          onCellLongPress: (datetime) {
-            if (widget.onCellLongPress != null) {
-              widget.onCellLongPress!(datetime);
-            }
-          },
-          weekdays: widget.shortHeader
-              ? widget.locale.weekdaysShort
-              : widget.locale.weekdaysLong,
-        );
-      },
+    return Container(
+      decoration: widget.theme!.calendarBoxDecoration,
+      child: ExpandablePageView(
+        allowImplicitScrolling: true,
+        animateFirstPage: false,
+        estimatedPageSize: widget.pageViewEstimateHeight,
+        animationCurve: widget.pageViewAnimationCurve,
+        animationDuration: widget.pageViewAnimationDuration,
+        physics: widget.scrollPhysics,
+        pageSnapping: true,
+        controller: pageController,
+        itemCount: months.length,
+        clipBehavior: widget.clipBehavior,
+        restorationId: widget.restorationId,
+        onPageChanged: _onPageChanged,
+        key: widget.key,
+        itemBuilder: (context, index) {
+          return CalendarView(
+            theme: widget.theme ?? DefaultEventCalendarThemeData(),
+            firstWeekday: widget.firstWeekday,
+            monthDateTime: months[index],
+            selectedDateTime: widget.selectedDateTime,
+            onDateTimeSelected: (datetime) {
+              if (widget.onSelectedDateChanged != null) {
+                widget.onSelectedDateChanged!(datetime);
+              }
+            },
+            onCellLongPress: (datetime) {
+              if (widget.onCellLongPress != null) {
+                widget.onCellLongPress!(datetime);
+              }
+            },
+            weekdays: widget.shortHeader
+                ? widget.locale.weekdaysShort
+                : widget.locale.weekdaysLong,
+          );
+        },
+      ),
     );
   }
 
