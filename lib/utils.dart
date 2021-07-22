@@ -45,12 +45,22 @@ extension DateComparison on DateTime {
   bool isSameYearMonthDay(datetime) =>
       isSameYear(datetime) && isSameMonth(datetime) && isSameDay(datetime);
 
+  /// Get difference from two datetimes.
+  ///
+  /// ```dart
+  /// // result is 11 same as `12 - 1`
+  /// DateTime(2021, 01).differenceInMonth(DateTime(2021, 12))
+  /// ```
+  /// This method is exclusive target DateTime.
+  /// result difference can be **Positive** or **Negative**.
+  /// [DateTime(/*Past*/).differenceInMonth(/*Future*/)] is positive.
+  /// [DateTime(/*Future*/).differenceInMonth(/*Past*/)] is negative.
   int differenceInMonth(DateTime datetime) {
     int diff = 0;
     DateTime source = this;
-    bool isBefore = source.isBefore(datetime);
-    int delta = isBefore ? 1 : -1;
+    int delta = source.isBefore(datetime) ? 1 : -1;
 
+    // Add delta until same year and month between [source] and [datetime].
     while (!source.isSameYearMonth(datetime)) {
       source = source.addMonth(delta);
       diff += delta;
