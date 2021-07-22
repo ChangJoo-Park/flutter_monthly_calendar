@@ -2,7 +2,7 @@ import 'package:flutter_monthly_calendar/utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  group('ListChunk extension', () {
+  group('ListMutation extension for chunk', () {
     List source = List.generate(100, (index) => index);
 
     test('chunked list by 2 length is 50',
@@ -15,7 +15,7 @@ void main() {
         () => expect(() => source.chunk(-50), throwsA(isA<RangeError>())));
   });
 
-  group('ListMutation extension', () {
+  group('ListMutation extension for rotate', () {
     List source = List.generate(5, (index) => index);
 
     test('Rotated list right side 3', () {
