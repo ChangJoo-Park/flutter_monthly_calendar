@@ -93,6 +93,34 @@ extension DateTimeExtension on DateTime {
   DateTime addMonth(int amount) => DateTime(year, month + amount, day);
 }
 
+/// Generate days for Calendar.
+///
+/// the [datetime] is source of calendar.
+/// If first day of [datetime]'s weekday is not the same as [baseWeekday],
+/// fill days before the first day of [datetime] until the same.
+///
+/// !!!: [baseWeekday] is not the same of [DateTime.monday] to [DateTime.sunday].
+/// It needs to recode.
+///
+/// When [baseWeekday] is [DateTime.monday] and month of [datetime] if start with [DateTime.wednesday].
+/// ```dart
+/// [
+///   [/* previous month's last -1 day */],[/* previous month's last day */],[1],[2],[3],[4],[5]
+///   // ...
+/// ]
+/// ```
+/// [generateMonth] fill first two days from previous month from [datetime]
+///
+/// also, If last day of [datetime]'s weekday is not the same as [baseWeekday],
+/// fill days after the last day of [datetime] until the same.
+///
+/// when last week of [datetime]'s month like below, fill last empty days from next month
+/// ```dart
+/// [
+///   // ...
+///   [26],[27],[28],[29],[30],[31],[/* next month's first day */],
+/// ]
+/// ```
 List<DateTime> generateMonth(DateTime datetime, int baseWeekday) {
   int firstWeekdayDiff = differenceFromDaysPerWeek(baseWeekday);
   // [datetime] 으로 부터 이번달의 1일의 요일을 가져온다.
@@ -103,11 +131,9 @@ List<DateTime> generateMonth(DateTime datetime, int baseWeekday) {
 
   // weekday 7은 일요일이므로 보정해야한다.
   // 달력은 일월화수목금토이기 때문
-  DateTime loopStartDay = firstOfMonth.toLocal().subtract(
-        Duration(
-            days:
-                firstOfMonth.weekday - 1 + firstWeekdayDiff), // 필요하면 유틸리티로 빼야함
-      );
+  DateTime loopStartDay = firstOfMonth
+      .toLocal()
+      .subtract(Duration(days: firstOfMonth.weekday - 1 + firstWeekdayDiff));
 
   DateTime loopEndDay = lastOfMonth
       .toLocal()
@@ -129,12 +155,14 @@ List<DateTime> generateMonth(DateTime datetime, int baseWeekday) {
   return days;
 }
 
+/// Generate [List<DateTime>] for Pages.
+///
 List<DateTime> generateCalendar(DateTime startDateTime, DateTime endDateTime) {
   DateTime calendarStartDate =
       DateTime(startDateTime.year, startDateTime.month, 1);
   DateTime calendarEndDate = endDateTime.addMonth(1);
 
-  return List.generate(
+  return List<DateTime>.generate(
     calendarStartDate.differenceInMonth(calendarEndDate),
     (amount) => calendarStartDate.addMonth(amount).toLocal(),
   );
