@@ -66,7 +66,9 @@ class CalendarCellState extends State<CalendarCell> {
 
   TextStyle get cellTextStyle {
     if (widget.isSelected) return widget.theme.selectedCellTextStyle;
-    if (widget.isToday) return widget.theme.todayCellTextStyle;
+    if (widget.isToday && widget.isSameMonth) {
+      return widget.theme.todayCellTextStyle;
+    }
     if (widget.isSameMonth) return widget.theme.defaultCellTextStyle;
     return widget.theme.otherMonthCellTextStyle;
   }
