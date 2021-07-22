@@ -1,0 +1,27 @@
+name: Publish web example
+on: push
+jobs:
+  build:
+    env:
+      my_secret: ${{secrets.commit_secret}}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: subosito/flutter-action@v1.5.3
+        with:
+          channel: 'dev'
+      - run: flutter config --enable-web
+      - run: flutter pub get
+      - run: flutter build web --release
+        working-directory: ./example
+      - run: |
+          cd example/build/web
+          git init
+          git config --global user.email pcjpcj2@gmail.com
+          git config --global user.name ChangJoo Park
+          git status
+          git remote add origin https://${{secrets.commit_secret}}@github.com/ChangJoo-Park/flutter_monthly_calendar.git
+          git checkout -b gh-pages
+          git add --all
+          git commit -m "Deploy web example"
+          git push origin gh-pages -f
