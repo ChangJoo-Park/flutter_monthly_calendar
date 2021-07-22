@@ -1,5 +1,5 @@
 import 'package:flutter_monthly_calendar/calendar_view.dart';
-import 'package:flutter_monthly_calendar/event_calendar_controller.dart';
+import 'package:flutter_monthly_calendar/monthly_calendar_controller.dart';
 import 'package:flutter_monthly_calendar/locale.dart';
 import 'package:flutter_monthly_calendar/themes.dart';
 import 'package:flutter_monthly_calendar/utils.dart';
@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 
 export 'themes.dart';
 export 'locale.dart';
-export 'event_calendar_controller.dart';
+export 'monthly_calendar_controller.dart';
 
 class MonthlyCalendar extends StatefulWidget {
   MonthlyCalendar({
