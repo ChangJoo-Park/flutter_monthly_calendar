@@ -39,10 +39,8 @@ class _MyHomePageState extends State<MyHomePage> {
   late EventCalendarThemeData theme = CyberFunkEventCalendarThemeData();
   @override
   void initState() {
-    if (widget.selectedDateTime != null) {
-      selectedDateTime = widget.selectedDateTime;
-      title = '${selectedDateTime.year}년 ${selectedDateTime.month}월';
-    }
+    selectedDateTime = widget.selectedDateTime;
+    title = '${selectedDateTime.year}년 ${selectedDateTime.month}월';
     controller = EventCalendarController();
     super.initState();
   }

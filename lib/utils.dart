@@ -3,10 +3,10 @@ extension ListChunk on List {
     if (chunkSize.isNegative) throw RangeError.range(chunkSize, 0, null);
 
     List<List<T>> chunks = [];
-    int len = this.length;
+    int len = length;
     for (var i = 0; i < len; i += chunkSize) {
       int size = i + chunkSize;
-      chunks.add(this.sublist(i, size > len ? len : size) as List<T>);
+      chunks.add(sublist(i, size > len ? len : size) as List<T>);
     }
     return chunks;
   }
@@ -28,24 +28,22 @@ extension ListMutation on List {
     return target;
   }
 
-  List<T> rotateRight<T>(int amount) => this.rotate(amount, true);
-  List<T> rotateLeft<T>(int amount) => this.rotate(amount, false);
+  List<T> rotateRight<T>(int amount) => rotate(amount, true);
+  List<T> rotateLeft<T>(int amount) => rotate(amount, false);
 }
 
 extension DateComparison on DateTime {
-  bool isSameYear(datetime) => this.year == datetime.year;
+  bool isSameYear(datetime) => year == datetime.year;
 
-  bool isSameMonth(datetime) => this.month == datetime.month;
+  bool isSameMonth(datetime) => month == datetime.month;
 
-  bool isSameDay(datetime) => this.day == datetime.day;
+  bool isSameDay(datetime) => day == datetime.day;
 
   bool isSameYearMonth(datetime) =>
-      this.isSameYear(datetime) && this.isSameMonth(datetime);
+      isSameYear(datetime) && isSameMonth(datetime);
 
   bool isSameYearMonthDay(datetime) =>
-      this.isSameYear(datetime) &&
-      this.isSameMonth(datetime) &&
-      this.isSameDay(datetime);
+      isSameYear(datetime) && isSameMonth(datetime) && isSameDay(datetime);
 
   int differenceInMonth(DateTime datetime) {
     int diff = 0;
@@ -61,9 +59,7 @@ extension DateComparison on DateTime {
     return diff;
   }
 
-  DateTime addMonth(int amount) {
-    return DateTime(this.year, this.month + amount, this.day);
-  }
+  DateTime addMonth(int amount) => DateTime(year, month + amount, day);
 }
 
 List<DateTime> generateMonth(DateTime datetime, int baseWeekday) {
@@ -95,8 +91,9 @@ List<DateTime> generateMonth(DateTime datetime, int baseWeekday) {
       loopEndDay.toLocal().difference(loopStartDay.toLocal()).inDays;
 
   List<DateTime> days = [];
-  for (var i = 0; i <= difference; i++)
+  for (var i = 0; i <= difference; i++) {
     days.add(loopStartDay.add(Duration(days: i)).toLocal());
+  }
 
   return days;
 }

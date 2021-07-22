@@ -108,12 +108,14 @@ class EventCalendarState extends State<EventCalendar> {
           monthDateTime: months[index],
           selectedDateTime: widget.selectedDateTime,
           onDateTimeSelected: (datetime) {
-            if (widget.onSelectedDateChanged != null)
+            if (widget.onSelectedDateChanged != null) {
               widget.onSelectedDateChanged!(datetime);
+            }
           },
           onCellLongPress: (datetime) {
-            if (widget.onCellLongPress != null)
+            if (widget.onCellLongPress != null) {
               widget.onCellLongPress!(datetime);
+            }
           },
           weekdays: widget.shortHeader
               ? widget.locale.weekdaysShort
@@ -141,10 +143,8 @@ class EventCalendarState extends State<EventCalendar> {
   }
 
   void _listenEventCalendarController() {
-    if (pageController == null) return;
-
     switch (widget.controller!.lastAction) {
-      case EventCalendarControllerAction.MOVETO:
+      case EventCalendarControllerAction.moveTo:
         DateTime target = DateTime(widget.controller!.moveTargetDateTime.year,
             widget.controller!.moveTargetDateTime.month, 1);
 

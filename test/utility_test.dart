@@ -90,7 +90,7 @@ void main() {
   });
 
   group('Generate Month', () {
-    test('generated month\"s first/last weekday is based on baseWeekday', () {
+    test("generated month's first/last weekday is based on baseWeekday", () {
       var mondayBaseMonth =
           generateMonth(DateTime(2021, 07, 01), DateTime.monday);
       expect(mondayBaseMonth.first.weekday, DateTime.monday);
