@@ -94,7 +94,7 @@ extension DateTimeExtension on DateTime {
 }
 
 List<DateTime> generateMonth(DateTime datetime, int baseWeekday) {
-  int firstWeekdayDiff = getDiffFromWeekday(baseWeekday);
+  int firstWeekdayDiff = differenceFromDaysPerWeek(baseWeekday);
   // [datetime] 으로 부터 이번달의 1일의 요일을 가져온다.
   DateTime firstOfMonth = DateTime(datetime.year, datetime.month, 1).toLocal();
   // 이번달의 마지막 날과 요일을 가져온다.
@@ -140,4 +140,5 @@ List<DateTime> generateCalendar(DateTime startDateTime, DateTime endDateTime) {
   );
 }
 
-int getDiffFromWeekday(int weekday) => DateTime.daysPerWeek - weekday + 1;
+int differenceFromDaysPerWeek(int weekday) =>
+    DateTime.daysPerWeek - weekday + 1;

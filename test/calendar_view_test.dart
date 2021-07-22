@@ -40,7 +40,7 @@ void main() {
     expect(
       state.weekdays,
       KoreanMonthlyCalendarLocale().weekdaysShort.rotateRight(
-            getDiffFromWeekday(firstWeekday),
+            differenceFromDaysPerWeek(firstWeekday),
           ),
     );
 

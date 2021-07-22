@@ -30,7 +30,7 @@ class CalendarView extends StatefulWidget {
 
 class CalendarViewState extends State<CalendarView> {
   List<String> get weekdays => List<String>.from(widget.weekdays)
-      .rotateRight<String>(getDiffFromWeekday(widget.firstWeekday));
+      .rotateRight<String>(differenceFromDaysPerWeek(widget.firstWeekday));
 
   List<DateTime> get days =>
       generateMonth(widget.monthDateTime.toLocal(), widget.firstWeekday);
