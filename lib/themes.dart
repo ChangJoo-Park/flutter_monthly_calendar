@@ -19,7 +19,7 @@ abstract class EventCalendarThemeData {
   late EdgeInsetsGeometry headerPadding;
   late EdgeInsetsGeometry headerMargin;
 
-  // Claendar Cell
+  // Calendar Cell
   late TextStyle otherMonthCellTextStyle;
   late TextStyle defaultCellTextStyle;
   late TextStyle todayCellTextStyle;
