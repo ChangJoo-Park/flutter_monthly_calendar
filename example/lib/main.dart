@@ -22,8 +22,8 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key, required this.title}) : super(key: key);
 
-  final DateTime startDateTime = DateTime(2020, 01, 01).toLocal();
-  final DateTime endDateTime = DateTime(2021, 12, 31).toLocal();
+  final DateTime startDateTime = DateTime(1970, 01, 01).toLocal();
+  final DateTime endDateTime = DateTime(2035, 12, 31).toLocal();
   final DateTime selectedDateTime = DateTime.now().add(Duration(days: 2));
 
   final String title;
@@ -36,7 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
   late DateTime selectedDateTime;
   late String title = '선택해주세요.';
   late EventCalendarController controller;
-  late EventCalendarThemeData theme = CyberFunkEventCalendarThemeData();
+  late EventCalendarThemeData theme = DefaultEventCalendarThemeData();
   @override
   void initState() {
     selectedDateTime = widget.selectedDateTime;
@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
           SliverToBoxAdapter(
             child: EventCalendar(
               controller: controller,
-              firstWeekday: DateTime.sunday,
+              firstWeekday: DateTime.monday,
               shortHeader: true,
               theme: theme,
               locale: KoreanEventCalendarLocale(),
@@ -105,6 +105,14 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             ListTile(
+              title: Text('Change Theme to Neumorphism'),
+              onTap: () {
+                setState(() {
+                  theme = NeumorphicEventCalendarThemeData();
+                });
+              },
+            ),
+            ListTile(
               title: Text('Change Theme to CyberFunk'),
               onTap: () {
                 setState(() {
@@ -112,18 +120,28 @@ class _MyHomePageState extends State<MyHomePage> {
                 });
               },
             ),
-          ])),
-          SliverToBoxAdapter(
-            child: Container(
-              padding: const EdgeInsets.all(16),
-              child: TextButton(
-                onPressed: () {
-                  controller.moveTo(DateTime(2021, 07));
-                },
-                child: Text("Move to 2021, 07"),
-              ),
+            ListTile(
+              title: Text('Select Today ${DateTime.now()} and Move Today'),
+              onTap: () {
+                setState(() {
+                  selectedDateTime = DateTime.now();
+                });
+                controller.moveTo(selectedDateTime);
+              },
             ),
-          ),
+            ListTile(
+              title: Text('Move to 1970, 01, 01'),
+              onTap: () {
+                controller.moveTo(DateTime(1970, 01, 01));
+              },
+            ),
+            ListTile(
+              title: Text('Move to 2035, 12, 31'),
+              onTap: () {
+                controller.moveTo(DateTime(2035, 12, 31));
+              },
+            ),
+          ])),
         ],
       ),
     );
